@@ -1,0 +1,20 @@
+# Large binaries
+Drive_download/
+*.tif
+*.tiff
+*.zip
+*.rar
+
+# Python environment
+__pycache__/
+*.pyc
+venv/
+.env
+
+# IDE artifacts
+.idea/
+.vscode/
+
+# Temporary data
+/tmp/
+*.log

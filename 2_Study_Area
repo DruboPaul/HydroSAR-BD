@@ -1,0 +1,60 @@
+# Tutorial: Creating a Q1-Quality Study Area Map in ArcGIS Pro
+
+This guide outlines the step-by-step process for creating a high-impact, physiographic-hydrological study area map (Figure 1) for your SAR analysis paper.
+
+## 📋 Prerequisites & Data
+Ensure you have the following data in your ArcGIS Pro project:
+1.  **DEM:** `Bangladesh_SRTM_DEM_30m.tif` (from GEE).
+2.  **Boundaries:** `bd_districts.shp` or `bd_divisions.shp`.
+3.  **Rivers:** Major river network shapefile.
+4.  **Basin:** GBM (Ganges-Brahmaputra-Meghna) basin boundary (optional for inset).
+
+---
+
+## 🎨 Step 1: Physiographic Base (The "3D Look")
+The goal is to move beyond a flat map using your DEM.
+
+1.  **Add DEM:** Drag the `Bangladesh_SRTM_DEM_30m.tif` into your Map.
+2.  **Generate Hillshade (Dynamic):**
+    - Select the DEM in the **Contents** pane.
+    - Go to the **Imagery** tab -> **Raster Functions**.
+    - Search for **"Surface"** and select **"Hillshade"**.
+    - Set **Hillshade Type** to **Multi-directional** (this creates a premium, soft shadow effect).
+3.  **Blended Elevation:**
+    - Place your original DEM *above* the Hillshade layer.
+    - Go to **Appearance** tab -> **Transparency** and set it to **30-40%**.
+    - Change the **Symbology** of the DEM to a "Terrain" or "Elevation" color ramp (Green for lowlands -> Brown for highlands).
+
+---
+
+## 🌊 Step 2: Hydrological Context
+1.  **Rivers:** Add your river network. Use a deep blue (`#004488`) with a very thin line weight (0.4 pt) for minor rivers and slightly thicker (1.0 pt) for the main GBM channels.
+2.  **Water Body Overlay:** If you have the "Permanent Water" layer from GEE, add it as a solid blue fill with no outline.
+
+---
+
+## 🏗️ Step 3: Layout & Cartography
+1.  **New Layout:** Go to **Insert** -> **New Layout** (choose A4 Portrait or Landscape).
+2.  **Map Frame:** Insert two map frames: one main frame for Bangladesh and a small one for the **Inset Map**.
+3.  **Inset Map:**
+    - Show Bangladesh as a red or blue polygon within South Asia or the GBM Basin.
+    - Add a "Locator Map" indicator showing the main map's extent.
+4.  **Grid & North Arrow:**
+    - Add a **Graticule** with 1-degree intervals. Keep it subtle (light gray lines).
+    - Use a **Modern North Arrow** (avoid the overly ornate ones).
+5.  **Typography (CRITICAL):**
+    - Use **Inter** or **Roboto** for all labels.
+    - Labels for Districts/Divisions should be subtle, while Major Cities should be bold.
+
+---
+
+## 📤 Step 4: Export for Publication
+1.  Go to **Share** -> **Export Layout**.
+2.  **Format:** PNG or TIFF.
+3.  **DPI:** 600 DPI (Minimum 300 for journals).
+4.  **Color Space:** RGB is fine for digital, but use CMYK if requested by the journal editor later.
+
+---
+
+> [!TIP]
+> **Pro Design Tip:** Try using a slight "Inner Glow" effect on the Bangladesh boundary to make the country pop from the background.
