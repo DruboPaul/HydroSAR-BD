@@ -2,7 +2,7 @@ import rasterio
 import numpy as np
 import os
 
-folder = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\data\rasters"
+folder = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\rasters"
 
 # --- TABLE 5: Persistence Analysis ---
 occ_path = os.path.join(folder, "Water_Occurrence_2015_2025.tif")

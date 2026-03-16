@@ -6,7 +6,7 @@ library(dplyr)
 library(scales)
 
 # 1. Load the CSV file downloaded from GEE
-file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis Paper/data/GEE_data/bhola_vv_histogram_july2023.csv"
+file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/GEE_data/bhola_vv_histogram_july2023.csv"
 data <- read.csv(file_path, stringsAsFactors = FALSE)
 
 # 2. Rename columns and clean data
@@ -24,7 +24,6 @@ data <- data %>% filter(Backscatter >= -25 & Backscatter <= 0)
 
 # 3. Define the Thresholds
 otsu_threshold <- -13.5  # Approximate Otsu calculation for Bhola July
-fixed_threshold <- -13.0 # Chosen fixed seasonal threshold for July
 
 # 4. Generate the Q1 Publication-Standard Plot
 p <- ggplot(data, aes(x = Backscatter, y = Pixel_Count)) +
@@ -33,14 +32,9 @@ p <- ggplot(data, aes(x = Backscatter, y = Pixel_Count)) +
   # Add Otsu Threshold Line (Red, Dashed)
   geom_vline(xintercept = otsu_threshold, linetype = "dashed", color = "#E74C3C", linewidth = 1.2) +
   
-  # Add Fixed Seasonal Threshold Line (Dark Blue, Two-dash)
-  geom_vline(xintercept = fixed_threshold, linetype = "twodash", color = "#154360", linewidth = 1.2) +
-  
-  # Annotations for the lines (Adjusted Y positions to avoid overlap)
+  # Annotations for the lines
   annotate("text", x = otsu_threshold - 0.4, y = max(data$Pixel_Count) * 0.85, 
            label = "Otsu's Threshold (-13.5 dB)", color = "#E74C3C", angle = 90, vjust = 1, size = 5, fontface="bold") +
-  annotate("text", x = fixed_threshold + 0.4, y = max(data$Pixel_Count) * 0.65, 
-           label = "Fixed Threshold (-13.0 dB)", color = "#154360", angle = 90, vjust = 0, size = 5, fontface="bold") +
   
   # Format Y-axis to avoid scientific notation
   scale_y_continuous(labels = comma) +
@@ -64,7 +58,7 @@ p <- ggplot(data, aes(x = Backscatter, y = Pixel_Count)) +
   )
 
 # 5. Save the plot to the figures directory
-output_dir <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis Paper/figures/"
+output_dir <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/figures/"
 ggsave(paste0(output_dir, "Supplementary_Figure_1_Otsu.pdf"), plot = p, width = 10, height = 6, dpi = 300)
 ggsave(paste0(output_dir, "Supplementary_Figure_1_Otsu.png"), plot = p, width = 10, height = 6, dpi = 300)
 

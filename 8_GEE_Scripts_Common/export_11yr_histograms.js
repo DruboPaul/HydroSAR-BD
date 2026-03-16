@@ -34,9 +34,9 @@ if (EXPORT_MODE === 'SINGLE') {
 
 var districtList = districtColl.toList(districtColl.size());
 
-print('🚀 Selected Mode:', EXPORT_MODE);
-if (EXPORT_MODE === 'SINGLE') print('📍 Target District:', TARGET_DISTRICT);
-print('📊 Districts to process:', districtColl.size());
+print('Selected Mode:', EXPORT_MODE);
+if (EXPORT_MODE === 'SINGLE') print('Target District:', TARGET_DISTRICT);
+print('Districts to process:', districtColl.size());
 
 // ─── MAIN LOOP: Year → Month → District ─────────────────────────────────────────
 var histogramData = years.map(function(y) {
@@ -48,7 +48,7 @@ var histogramData = years.map(function(y) {
       .filterBounds(bdGeom)
       .filterDate(start, end)
       .filter(ee.Filter.eq('instrumentMode', 'IW'))
-      .filter(ee.Filter.listContains('transmitterReceiverPolarization', 'VV'));
+      .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV'));
     
     var imgCount = s1_col.size();
     
@@ -72,7 +72,8 @@ var histogramData = years.map(function(y) {
           geometry: dist.geometry(),
           scale: 100,
           bestEffort: true,
-          maxPixels: 1e13
+          maxPixels: 1e13,
+          tileScale: 16
         }),
         ee.Dictionary({VV: ee.Dictionary({histogram: [], bucketMeans: []})})
       ));
@@ -106,5 +107,5 @@ Export.table.toDrive({
   fileFormat: 'CSV'
 });
 
-print('✅ Export task created named: ' + exportName);
-print('👉 Go to the "Tasks" tab and click RUN.');
+print('Export task created named: ' + exportName);
+print('Go to the "Tasks" tab and click RUN.');

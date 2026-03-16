@@ -5,14 +5,14 @@ import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
 import os
 
-print("Fetching ERA5 Historical Precipitation for Bangladesh (2015-2024)...")
+print("Fetching ERA5 Historical Precipitation for Bangladesh (2015-2025)...")
 # API endpoint for Open-Meteo historical ERA5
 url = "https://archive-api.open-meteo.com/v1/archive"
 params = {
     "latitude": 23.6850,  # Central Bangladesh
     "longitude": 90.3563,
     "start_date": "2015-01-01",
-    "end_date": "2024-12-31",
+    "end_date": "2025-12-31",
     "daily": "precipitation_sum",
     "timezone": "auto"
 }
@@ -31,7 +31,7 @@ if response.status_code == 200:
     monthly_precip = df_meteo.groupby(['Year', 'Month'])['Precip_mm'].sum().reset_index()
     
     # Read our SAR water area data
-    sar_path = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\data\GEE_data\Final_Interpolated_Master_Dataset_2015_2025.csv"
+    sar_path = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Final_Interpolated_Master_Dataset_GMM.csv"
     df_sar = pd.read_csv(sar_path)
     df_sar_nat = df_sar[df_sar['Scope'] == 'National'][['Year', 'Month', 'Area_km2']]
     
@@ -45,7 +45,7 @@ if response.status_code == 200:
     print(f"July Peak Correlation (Precip vs Water Area): r = {corr_coeff:.3f}, p = {p_val:.4f}")
     
     # Plot Scatter
-    out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\figures"
+    out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\figures"
     os.makedirs(out_dir, exist_ok=True)
     
     plt.figure(figsize=(8, 6))
@@ -56,7 +56,7 @@ if response.status_code == 200:
     p = np.poly1d(z)
     plt.plot(df_july['Precip_mm'], p(df_july['Precip_mm']), "r--", linewidth=2)
     
-    plt.title("Correlation between July Precipitation (ERA5) and Peak Surface Water Extent\n(Bangladesh 2015-2024)", fontsize=12)
+    plt.title("Correlation between July Precipitation (ERA5) and Peak Surface Water Extent\n(Bangladesh 2015-2025)", fontsize=12)
     plt.xlabel("Total July Precipitation (mm)", fontsize=11)
     plt.ylabel("July Surface Water Extent (km²)", fontsize=11)
     plt.grid(True, linestyle='--', alpha=0.6)

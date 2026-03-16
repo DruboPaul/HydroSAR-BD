@@ -1,6 +1,6 @@
 import pandas as pd
 
-path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\data\GEE_data\Final_Master_Dataset_2015_2025.csv"
+path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Final_Master_Dataset_2015_2025.csv"
 df = pd.read_csv(path)
 df = df.drop_duplicates(subset=['Year', 'Month', 'Class'])
 

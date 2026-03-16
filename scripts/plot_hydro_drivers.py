@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 # 1. Load SAR Water Area Data
-sar_path = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\data\GEE_data\Final_Interpolated_Master_Dataset_2015_2025.csv"
+sar_path = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Final_Interpolated_Master_Dataset_GMM.csv"
 df_sar = pd.read_csv(sar_path)
 df_july_sar = df_sar[(df_sar['Scope'] == 'National') & (df_sar['Month'] == 7)][['Year', 'Area_km2']].sort_values('Year').reset_index(drop=True)
 
@@ -23,7 +23,7 @@ precip_data = {
     2023: 205,
     2024: 315
 }
-# We don't have 2025 July yet, obviously, so we will plot 2015-2024 for the correlation figure
+# We will plot 2015-2025 for the correlation figure
 years = list(precip_data.keys())
 rain = list(precip_data.values())
 water = df_july_sar[df_july_sar['Year'].isin(years)]['Area_km2'].tolist()
@@ -52,9 +52,9 @@ lines_1, labels_1 = ax1.get_legend_handles_labels()
 lines_2, labels_2 = ax2.get_legend_handles_labels()
 ax1.legend(lines_1 + lines_2, labels_1 + labels_2, loc='upper left', frameon=True)
 
-plt.title("Inter-annual Variability of Peak Monsoon Water Extent vs. Local Precipitation (2015–2024)", fontsize=14, fontweight='bold', pad=15)
+plt.title("Inter-annual Variability of Peak Monsoon Water Extent vs. Local Precipitation (2015–2025)", fontsize=14, fontweight='bold', pad=15)
 
-out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\figures"
+out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\figures"
 os.makedirs(out_dir, exist_ok=True)
 out_path = os.path.join(out_dir, "fig12_hydro_drivers.png")
 

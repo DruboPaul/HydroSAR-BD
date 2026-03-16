@@ -1,9 +1,0 @@
-# Outputs
-
-This folder contains all analysis outputs.
-
-## Structure
-- `maps/` - GeoTIFF water maps
-- `figures/` - PNG/PDF figures for publication
-- `reports/` - Analysis reports
-- `statistics/` - CSV area statistics

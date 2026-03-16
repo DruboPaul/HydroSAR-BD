@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Load data
-file_path = r'd:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\data\Sample_Points\Final_Binary_Field_Validation_2025.csv'
+file_path = r'd:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Sample_Points\Final_Binary_Field_Validation_2025.csv'
 df = pd.read_csv(file_path)
 
 # Drop rows with NaNs if any (GEE sometimes outputs them if pixels are masked)

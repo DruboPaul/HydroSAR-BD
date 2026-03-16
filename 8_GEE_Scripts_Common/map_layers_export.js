@@ -2,9 +2,9 @@
  MAP FIGURES EXPORT FOR ARCGIS PRO
  
  এই স্ক্রিপ্টটি ৩টি প্রধান ম্যাপ লেয়ার জিওটিফ (GeoTIFF) হিসেবে এক্সপোর্ট করবে:
- ১. Monthly Peak Map (July 2024)
- ২. Water Persistence Map (2023)
- ৩. Change Detection Map (2015 vs 2024 July)
+ ৫. Monthly Peak Map (July 2025)
+ ৬. Water Persistence Map (2025)
+ ৭. Change Detection Map (2015 vs 2025 July)
  
  HOW TO USE:
  ১. GEE-তে Run করুন।
@@ -38,12 +38,12 @@ function getMonthlyWater(year, monthName) {
     return median.lt(thresholds[monthName]).unmask(0);
 }
 
-// --- 1. Monthly Peak Map (July 2024) ---
-var peakWater2024 = getMonthlyWater(2024, 'July').clip(bdGeom).byte();
+// --- 1. Monthly Peak Map (July 2025) ---
+var peakWater2025 = getMonthlyWater(2025, 'July').clip(bdGeom).byte();
 
 Export.image.toDrive({
-    image: peakWater2024,
-    description: 'Water_Peak_July_2024',
+    image: peakWater2025,
+    description: 'Water_Peak_July_2025',
     scale: EXPORT_SCALE,
     region: bdGeom,
     maxPixels: 1e11,
@@ -55,7 +55,7 @@ Export.image.toDrive({
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var monthImages = months.map(function (m) {
     // Use thresholds object properly
-    var start = '2023-' + (months.indexOf(m) + 1 < 10 ? '0' + (months.indexOf(m) + 1) : months.indexOf(m) + 1) + '-01';
+    var start = '2025-' + (months.indexOf(m) + 1 < 10 ? '0' + (months.indexOf(m) + 1) : months.indexOf(m) + 1) + '-01';
     var col = ee.ImageCollection('COPERNICUS/S1_GRD')
         .filterBounds(bdGeom).filterDate(start, ee.Date(start).advance(1, 'month'))
         .filter(ee.Filter.eq('instrumentMode', 'IW'))
@@ -76,7 +76,7 @@ var persistence = ee.Image(0)
 
 Export.image.toDrive({
     image: persistence,
-    description: 'Water_Persistence_2023',
+    description: 'Water_Persistence_2025',
     scale: EXPORT_SCALE,
     region: bdGeom,
     maxPixels: 1e11,
@@ -84,20 +84,20 @@ Export.image.toDrive({
     fileFormat: 'GeoTIFF'
 });
 
-// --- 3. July Change Detection (2015 vs 2024) ---
+// --- 3. July Change Detection (2015 vs 2025) ---
 var water2015 = getMonthlyWater(2015, 'July');
-var water2024 = getMonthlyWater(2024, 'July');
+var water2025 = getMonthlyWater(2025, 'July');
 
 // 1=Lost, 2=Stable, 3=Gained
 var change = ee.Image(0)
-    .where(water2015.eq(1).and(water2024.eq(0)), 1)
-    .where(water2015.eq(1).and(water2024.eq(1)), 2)
-    .where(water2015.eq(0).and(water2024.eq(1)), 3)
+    .where(water2015.eq(1).and(water2025.eq(0)), 1)
+    .where(water2015.eq(1).and(water2025.eq(1)), 2)
+    .where(water2015.eq(0).and(water2025.eq(1)), 3)
     .clip(bdGeom).byte();
 
 Export.image.toDrive({
     image: change,
-    description: 'Water_Change_July_2015_2024',
+    description: 'Water_Change_July_2015_2025',
     scale: EXPORT_SCALE,
     region: bdGeom,
     maxPixels: 1e11,

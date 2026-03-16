@@ -3,7 +3,7 @@ import json
 from scipy import stats as sp_stats
 
 # Path to the final imputed dataset
-path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\data\GEE_data\Final_Interpolated_Master_Dataset_2015_2025.csv"
+path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Final_Interpolated_Master_Dataset_2015_2025.csv"
 df = pd.read_csv(path)
 
 # 1. Monthly Stats (Table 4)
@@ -72,7 +72,7 @@ final_stats = {
 }
 
 # Save to JSON
-json_path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\data\extracted_stats.json"
+json_path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\extracted_stats.json"
 with open(json_path, 'w') as f:
     json.dump(final_stats, f, indent=2)
 

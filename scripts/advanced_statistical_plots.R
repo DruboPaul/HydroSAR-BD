@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════
-# Advanced Statistical Graphics — SAR Analysis Paper
+# Advanced Statistical Graphics — SAR Analysis GMM
 # ═══════════════════════════════════════════════════════════════════
 
 # 1. Setup
@@ -17,7 +17,7 @@ library(RColorBrewer)
 
 # 2. Load Data
 # Assuming the user has downloaded the V2 CSV to the statistics folder
-file_path <- "../data/statistics/HydroSAR_Bangladesh_Full_Dataset_V2_Corrected.csv"
+file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/Final_Interpolated_Master_Dataset_GMM.csv"
 
 # Safety check for file existence
 if (!file.exists(file_path)) {

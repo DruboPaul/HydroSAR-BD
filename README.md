@@ -1,37 +1,40 @@
-# HydroSAR Bangladesh - GMM Threshold Analysis
-
-This repository contains the updated methodology and scripts for the **HydroSAR Bangladesh** project, specifically transitioning from fixed SAR backscatter thresholds to statistically optimal **Gaussian Mixture Model (GMM)** derived thresholds.
-
-This workspace was cloned from the original "SAR Analysis Paper" directory to provide a clean environment for implementing the per-district GMM methodology for a Q1 journal publication.
-
-## 🚀 How to Continue the Study (from another PC)
-
-Once you clone this repository to your new PC, follow these steps to resume the work:
-
-### Phase 1: Data Extraction (Google Earth Engine)
-1. Open [Google Earth Engine Code Editor](https://code.earthengine.google.com/).
-2. Copy the contents of `8_GEE_Scripts_Common/export_11yr_histograms.js`.
-3. Set `var EXPORT_MODE = 'ALL';` at the top of the script.
-4. Run the script and execute the Task to export `Bangladesh_District_VV_Histograms_2015_2025.csv` to your Google Drive.
-5. Download this CSV from Google Drive and place it in the `data/` folder of this repository on your local PC.
-
-### Phase 2: Batch Analysis (Python)
-1. Ensure you have Python installed with the necessary libraries (`pandas`, `numpy`, `scikit-learn`, `matplotlib`, `scipy`).
-2. We will need to write the `batch_gmm_processor.py` script. The goal of this script is to:
-   - Load the master CSV you just downloaded.
-   - Loop through all 64 districts and 12 months.
-   - Apply the GMM algorithm to find the optimal threshold for each district/month.
-   - Save the results into a new "Threshold Lookup Table" CSV.
-
-### Phase 3: Update GEE Explorer App
-1. Once we have the "Threshold Lookup Table" CSV, we will either upload it as a GEE Asset or hardcode the dictionary into your main explorer script.
-2. We will modify the Explorer app to read from this table instead of using the old fixed values (like `-13 dB`).
-
-## 📂 Directory Structure Highlights
-* `8_GEE_Scripts_Common/`: Contains the crucial dual-mode histogram export script.
-* `scripts/`: Contains the `gmm_threshold.py` script used for the initial proof-of-concept on a single month's data.
-* `data/`: Where you should place the downloaded master CSV from GEE.
-* `figures/`: Proof-of-concept visual comparisons of GMM vs. Fixed thresholds.
+# 🌊 HydroSAR Bangladesh - GMM Threshold Analysis
+**(Seasonally Adaptive Per-District SAR Water Detection)**
 
 ---
-*Note: Large binary files (.tif, .zip) and Python environments are excluded via `.gitignore` to keep the repository lightweight.*
+
+## 🚩 PROJECT STATUS DASHBOARD
+**Current Phase**: 🧬 Data Generation & Manuscript Sync (Phase 4 of 5)
+
+| Metric | Status | Value |
+| :--- | :--- | :--- |
+| **GMM Accuracy (OA)** | ✅ Verified | **94.24%** |
+| **GMM Kappa (κ)** | ✅ Verified | **0.8848** |
+| **Field Validation** | ✅ Audited | 6,000 Points |
+| **11-Year GEE Run** | 🔄 In-Progress | Waiting for Console Output |
+| **Manuscript Tables** | 🔄 In-Progress | 2015 Baseline Synced |
+
+---
+
+## 📂 Project Organization
+
+- **`7_Manuscript/`**: 📝 The LaTeX source for the publication.
+- **`8_GEE_Scripts_Common/`**: 🛰️ Earth Engine scripts (History, Explorer, Validation).
+- **`data/`**: 📊 Numerical data, threshold lookup tables, and GEE console exports.
+- **`scripts/`**: 🐍 Python/R library for statistics, GMM fitting, and figure generation.
+- **`figures/`**: 🖼️ Final publication-quality plots and maps.
+- **`legacy/`**: 📦 Archived "Fixed Threshold" files and temporary analysis scripts.
+
+---
+
+## 🔄 How to Resume (New Monitor/Location)
+
+If you are starting work from a different PC, follow these steps to see exactly where we are:
+
+1.  **Check `task.md`**: This is our master checklist. Look for the `[/]` (In Progress) and `[ ]` (Pending) markers.
+2.  **Verify GEE Console**: Open Earth Engine. If any `monthly_water_area` consoles have finished, save the text to `data/GEE_data/`.
+3.  **Run Sync**: Use `scripts/parse_gee_console.py` and `data/get_stats.py` to update the local database.
+4.  **Finalize Tables**: Check `7_Manuscript/main_final_submission.tex` for remaining `[TBD]` markers.
+
+---
+*Last Sync: March 16, 2026 (11-Year Dataset Baseline established with 2015 data)*

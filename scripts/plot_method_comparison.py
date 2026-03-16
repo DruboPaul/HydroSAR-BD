@@ -76,7 +76,7 @@ for i, v in enumerate(f1_rf):
 
 plt.tight_layout()
 
-out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\figures"
+out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\figures"
 os.makedirs(out_dir, exist_ok=True)
 out_path = os.path.join(out_dir, "fig13_method_comparison.png")
 plt.savefig(out_path, dpi=300, bbox_inches='tight')

@@ -6,7 +6,7 @@ for (pkg in required_pkgs) {
 }
 
 # 2. Load the Interpolated Master Dataset
-file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis Paper/data/GEE_data/Final_Interpolated_Master_Dataset_2015_2025.csv"
+file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/Final_Interpolated_Master_Dataset_GMM.csv"
 data <- read.csv(file_path, stringsAsFactors = FALSE)
 
 # 3. Filter only District Level Data

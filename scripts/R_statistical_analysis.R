@@ -1,5 +1,4 @@
-# ═══════════════════════════════════════════════════════════════════
-# Statistical Analysis for SAR Analysis Paper
+# Statistical Analysis for SAR Analysis GMM (Per-District)
 # Using R for rigorous trend analysis and hypothesis testing
 # ═══════════════════════════════════════════════════════════════════
 # Install packages if needed:
@@ -10,36 +9,19 @@ library(trend)      # For Mann-Kendall test & Sen's slope
 library(reshape2)
 
 # ─── 1. DATA FROM GEE CSV EXPORTS ──────────────────────────────
-# Monthly water area (km²) for Bangladesh, 2015–2024
-# Source: GEE Sentinel-1 SAR analysis at 1000m scale
+# Monthly water area (km²) for Bangladesh, 2015–2025
+# Source: GEE Sentinel-1 SAR analysis (GMM Method)
 
-data <- data.frame(
-  Year = 2015:2024,
-  Jan = c(13817.293, 10033.979, 15102.289, 15020.881, 14846.779,
-          14699.496, 15244.409, 14803.841, 14836.577, 14771.731),
-  Feb = c(15208.192, 15373.429, 15464.667, 15866.408, 15340.704,
-          15342.215, 15796.194, 15475.861, 15473.008, 15352.859),
-  Mar = c(15158.563, 15620.761, 15625.254, 15608.784, 15505.443,
-          15634.633, 15976.852, 15608.355, 15555.067, 15301.954),
-  Apr = c(14896.631, 16364.841, 18871.046, 16294.054, 16047.255,
-          16391.166, 17065.508, 16804.391, 16319.988, 16347.782),
-  May = c(16493.996, 20372.264, 21048.046, 18186.800, 18044.032,
-          17257.106, 17293.721, 19066.015, 17171.131, 16957.499),
-  Jun = c(24228.135, 23781.945, 23855.742, 23604.756, 21371.678,
-          23888.578, 21810.248, 26018.585, 19764.090, 24840.592),
-  Jul = c(24016.387, 28612.515, 26805.884, 24968.762, 27994.037,
-          29127.877, 25507.402, 26491.071, 25414.065, 28009.873),
-  Aug = c(24639.298, 26079.286, 28446.397, 25712.781, 25415.435,
-          27642.895, 26504.857, 24652.414, 24812.479, 26445.943),
-  Sep = c(21676.218, 24031.026, 25136.141, 22945.253, 22388.786,
-          24370.611, 23117.211, 23086.965, 21853.491, 22402.102),
-  Oct = c(19203.333, 20960.614, 21269.566, 19233.515, 20459.551,
-          21954.463, 20395.600, 20746.769, 20285.451, 21174.055),
-  Nov = c(16511.961, 18100.543, 18699.936, 16889.934, 17746.825,
-          18269.715, 17155.650, 17356.389, 16991.896, 17384.512),
-  Dec = c(13352.842, 15334.701, 15687.453, 15086.621, 15166.978,
-          15592.985, 15416.399, 15171.417, 14990.964, 15130.570)
-)
+file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/Final_Interpolated_Master_Dataset_GMM.csv"
+df_master <- read.csv(file_path)
+
+# Prepare national-level monthly columns
+nat_df <- subset(df_master, Scope == "National")
+wide_data <- reshape(nat_df[, c("Year", "Month", "Area_km2")], 
+                    idvar = "Year", timevar = "Month", direction = "wide")
+colnames(wide_data) <- c("Year", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+data <- wide_data
+
 
 cat("═══════════════════════════════════════════════\n")
 cat("STATISTICAL ANALYSIS — SAR Surface Water Paper\n")

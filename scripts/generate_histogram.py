@@ -4,7 +4,7 @@ from scipy.stats import gaussian_kde
 import os
 
 # Create figure directory if it doesn't exist
-out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\figures"
+out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\figures"
 os.makedirs(out_dir, exist_ok=True)
 
 # Set plotting style

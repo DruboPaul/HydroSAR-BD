@@ -31,25 +31,17 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # ─── Config ──────────────────────────────────────────────────────────────────────
-CSV_PATH = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\data\GEE_data\ee-chart.csv"
-OUTPUT_DIR = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis Paper\figures"
+CSV_PATH = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\ee-chart.csv"
+OUTPUT_DIR = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\figures"
 N_COMPONENTS = 2  # Water + Land
-
-# Explorer's fixed thresholds (applied to raw S1 VV dB in the GEE Explorer)
-EXPLORER_THRESHOLDS = {
-    'January': -17, 'February': -16, 'March': -16, 'April': -15,
-    'May': -14, 'June': -13, 'July': -13, 'August': -13,
-    'September': -14, 'October': -15, 'November': -16, 'December': -17
-}
 
 # This CSV is from July 2020
 DATA_MONTH = 'July'
 DATA_YEAR = 2020
-FIXED_THRESHOLD = EXPLORER_THRESHOLDS[DATA_MONTH]
 
 # ─── Step 1: Load and clean data ─────────────────────────────────────────────────
 print("=" * 70)
-print("  GMM vs FIXED THRESHOLD COMPARISON")
+print("  GMM vs OTSU THRESHOLD COMPARISON")
 print(f"  Data: {DATA_MONTH} {DATA_YEAR} — Bangladesh")
 print("=" * 70)
 
@@ -142,7 +134,6 @@ total_pixels = df['count'].sum()
 thresholds_to_compare = {
     'GMM (data-driven)': gmm_threshold,
     "Otsu's method": otsu_threshold,
-    f'Explorer Fixed ({DATA_MONTH})': FIXED_THRESHOLD,
 }
 
 print(f"\n   {'Method':<25} {'Threshold':>10} {'Water %':>10} {'Land %':>10}")
@@ -161,9 +152,6 @@ for name, thresh in thresholds_to_compare.items():
 print(f"\n⚠️  SCALE NOTE:")
 print(f"   The histogram CSV was generated with 10×log10() applied to raw S1 VV.")
 print(f"   GMM threshold ({gmm_threshold:+.2f}) and Otsu ({otsu_threshold:+.2f}) are in this transformed space.")
-print(f"   Explorer threshold ({FIXED_THRESHOLD}) is in raw S1 VV dB space.")
-print(f"   For a true apples-to-apples comparison, use the district-wise export")
-print(f"   (export_11yr_histograms.js) which uses raw VV without conversion.")
 
 # ─── Step 8: Publication-quality 3-panel figure ──────────────────────────────────
 print(f"\n🎨 Generating comparison figure...")
@@ -188,13 +176,11 @@ ax1.plot(x_range, pdf_land * scale_factor, 'g-', linewidth=2.5,
 pdf_combined = (pdf_water + pdf_land) * scale_factor
 ax1.plot(x_range, pdf_combined, 'k--', linewidth=1.2, alpha=0.5, label='Combined GMM')
 
-# All three threshold lines
+# Two threshold lines
 ax1.axvline(x=gmm_threshold, color='red', linewidth=2.5, linestyle='-', 
             label=f'GMM: {gmm_threshold:.2f}')
 ax1.axvline(x=otsu_threshold, color='orange', linewidth=2.5, linestyle='--', 
             label=f"Otsu: {otsu_threshold:.2f}")
-ax1.axvline(x=FIXED_THRESHOLD, color='magenta', linewidth=2.5, linestyle='-.', 
-            label=f'Explorer Fixed ({DATA_MONTH}): {FIXED_THRESHOLD}')
 
 # Overlap zone
 overlap_mask = (x_range > means[0]) & (x_range < means[1])
@@ -204,7 +190,7 @@ ax1.fill_between(x_range[overlap_mask], 0,
 
 ax1.set_xlabel('VV Backscatter Value', fontsize=13, fontweight='bold')
 ax1.set_ylabel('Pixel Count', fontsize=13, fontweight='bold')
-ax1.set_title(f'GMM-Based Threshold vs Explorer Fixed Threshold — {DATA_MONTH} {DATA_YEAR}, Bangladesh', 
+ax1.set_title(f'GMM-Based Threshold vs Otsu Automatic — {DATA_MONTH} {DATA_YEAR}, Bangladesh', 
               fontsize=15, fontweight='bold', pad=15)
 ax1.legend(loc='upper left', fontsize=9.5, framealpha=0.9, ncol=2)
 ax1.set_xlim(-35, 15)
@@ -219,7 +205,6 @@ ax2.fill_between(x_range, 0, posterior_water, alpha=0.5, color='#2171b5', label=
 ax2.fill_between(x_range, 0, posterior_land, alpha=0.5, color='#78c679', label='P(Land | VV)')
 ax2.axvline(x=gmm_threshold, color='red', linewidth=2.5, linestyle='-')
 ax2.axvline(x=otsu_threshold, color='orange', linewidth=2, linestyle='--')
-ax2.axvline(x=FIXED_THRESHOLD, color='magenta', linewidth=2, linestyle='-.')
 ax2.axhline(y=0.5, color='gray', linewidth=1, linestyle=':', alpha=0.5)
 
 ax2.set_xlabel('VV Backscatter Value', fontsize=13, fontweight='bold')
@@ -282,7 +267,6 @@ print(f"  FINAL SUMMARY — {DATA_MONTH} {DATA_YEAR}")
 print(f"{'=' * 70}")
 print(f"  GMM Threshold:        {gmm_threshold:+.2f}  (data-driven, statistically optimal)")
 print(f"  Otsu Threshold:       {otsu_threshold:+.2f}  (inter-class variance maximization)")
-print(f"  Explorer Fixed:       {FIXED_THRESHOLD:+.2f}  (hardcoded for {DATA_MONTH})")
 print(f"")
 print(f"  Water μ = {means[0]:+.2f},  Land μ = {means[1]:+.2f}")
 print(f"  Separation = {abs(means[1] - means[0]):.2f} (distance between peaks)")

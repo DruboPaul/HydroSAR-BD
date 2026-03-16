@@ -2,163 +2,121 @@
   "T4": [
     {
       "Month": "January",
-      "Min": 4903,
-      "Max": 6197,
-      "Mean": 5678,
-      "SD": 331
+      "Min": 16961,
+      "Max": 16961,
+      "Mean": 16961,
+      "SD": 0
     },
     {
       "Month": "February",
-      "Min": 5647,
-      "Max": 6344,
-      "Mean": 5937,
-      "SD": 239
+      "Min": 21029,
+      "Max": 21029,
+      "Mean": 21029,
+      "SD": 0
     },
     {
       "Month": "March",
-      "Min": 5490,
-      "Max": 6418,
-      "Mean": 6006,
-      "SD": 271
+      "Min": 0,
+      "Max": 0,
+      "Mean": 0,
+      "SD": 0
     },
     {
       "Month": "April",
-      "Min": 5484,
-      "Max": 10545,
-      "Mean": 7159,
-      "SD": 1266
+      "Min": 0,
+      "Max": 0,
+      "Mean": 0,
+      "SD": 0
     },
     {
       "Month": "May",
-      "Min": 7337,
-      "Max": 13104,
-      "Mean": 9271,
-      "SD": 1997
+      "Min": 11670,
+      "Max": 11670,
+      "Mean": 11670,
+      "SD": 0
     },
     {
       "Month": "June",
-      "Min": 11990,
-      "Max": 21032,
-      "Mean": 16680,
-      "SD": 2762
+      "Min": 0,
+      "Max": 0,
+      "Mean": 0,
+      "SD": 0
     },
     {
       "Month": "July",
-      "Min": 19471,
-      "Max": 29991,
-      "Mean": 23269,
-      "SD": 3954
+      "Min": 22406,
+      "Max": 22406,
+      "Mean": 22406,
+      "SD": 0
     },
     {
       "Month": "August",
-      "Min": 19998,
-      "Max": 27801,
-      "Mean": 22764,
-      "SD": 2599
+      "Min": 0,
+      "Max": 0,
+      "Mean": 0,
+      "SD": 0
     },
     {
       "Month": "September",
-      "Min": 14919,
-      "Max": 19126,
-      "Mean": 16931,
-      "SD": 1448
+      "Min": 20330,
+      "Max": 20330,
+      "Mean": 20330,
+      "SD": 0
     },
     {
       "Month": "October",
-      "Min": 11176,
-      "Max": 15282,
-      "Mean": 13270,
-      "SD": 1291
+      "Min": 0,
+      "Max": 0,
+      "Mean": 0,
+      "SD": 0
     },
     {
       "Month": "November",
-      "Min": 8185,
-      "Max": 11103,
-      "Mean": 9643,
-      "SD": 878
+      "Min": 0,
+      "Max": 0,
+      "Mean": 0,
+      "SD": 0
     },
     {
       "Month": "December",
-      "Min": 6107,
-      "Max": 7800,
-      "Mean": 6920,
-      "SD": 492
+      "Min": 0,
+      "Max": 0,
+      "Mean": 0,
+      "SD": 0
     }
   ],
   "T6": [
     {
       "Season": "Dry Winter",
-      "Mean": 6178,
-      "Max": 7800,
-      "Min": 4903
+      "Mean": 18995,
+      "Max": 21029,
+      "Min": 16961
     },
     {
       "Season": "Pre-Monsoon",
-      "Mean": 7479,
-      "Max": 13104,
-      "Min": 5484
+      "Mean": 11670,
+      "Max": 11670,
+      "Min": 11670
     },
     {
       "Season": "Monsoon",
-      "Mean": 19911,
-      "Max": 29991,
-      "Min": 11990
+      "Mean": 21368,
+      "Max": 22406,
+      "Min": 20330
     },
     {
       "Season": "Post-Monsoon",
-      "Mean": 11456,
-      "Max": 15282,
-      "Min": 8185
+      "Mean": 0,
+      "Max": 0,
+      "Min": 0
     }
   ],
   "T8": [
     {
-      "Class": "Barisal",
-      "Slope": -27.12,
-      "R2": 0.145,
-      "PVal": 0.248
-    },
-    {
-      "Class": "Chittagong",
-      "Slope": -42.96,
-      "R2": 0.188,
-      "PVal": 0.183
-    },
-    {
-      "Class": "Dhaka",
-      "Slope": -121.17,
-      "R2": 0.106,
-      "PVal": 0.328
-    },
-    {
-      "Class": "Khulna",
-      "Slope": -8.56,
-      "R2": 0.005,
-      "PVal": 0.83
-    },
-    {
-      "Class": "Rajshahi",
-      "Slope": -124.69,
-      "R2": 0.133,
-      "PVal": 0.27
-    },
-    {
-      "Class": "Rangpur",
-      "Slope": -77.67,
-      "R2": 0.114,
-      "PVal": 0.309
-    },
-    {
-      "Class": "Sylhet",
-      "Slope": 49.98,
-      "R2": 0.038,
-      "PVal": 0.565
-    },
-    {
       "Class": "Bangladesh",
-      "Slope": -352.18,
-      "R2": 0.087,
-      "PVal": 0.378
+      "Slope": 0.0,
+      "R2": 0.0,
+      "PVal": 1.0
     }
   ]
 }

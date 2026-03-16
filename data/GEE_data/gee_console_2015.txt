@@ -1,0 +1,48 @@
+PEAK WATER AND MONTHLY DATA EXPORT (GMM METHOD)
+Bangladesh 2015 Console Output
+Date: 2026-03-16
+
+╔══════════════════════════════════════════╗
+║  PART 1: NATIONAL MONTHLY WATER AREA     ║
+║  Bangladesh | 2015-2025 | 12 months       ║
+╚══════════════════════════════════════════╝
+Format: Year | Month | Water Area (km²)
+---
+2015 | February | 21029.3 km²
+2015 | September | 20329.6 km²
+2015 | May | 11670.4 km²
+2015 | March | 0.0 km² (No Data)
+2015 | July | 0.0 km² (No Data)
+2015 | June | 0.0 km² (No Data)
+2015 | November | 0.0 km² (No Data)
+2015 | January | 0.0 km² (No Data)
+2015 | October | 0.0 km² (No Data)
+2015 | July | 22406.1 km²
+2015 | December | 0.0 km² (No Data)
+2015 | January | 16961.3 km²
+2015 | August | 0.0 km² (No Data)
+2015 | April | 0.0 km² (No Data)
+2015 | March | 0.0 km² (No Data)
+2015 | November | 0.0 km² (No Data)
+2015 | December | 0.0 km² (No Data)
+2015 | October | 0.0 km² (No Data)
+2015 | August | 0.0 km² (No Data)
+
+╔══════════════════════════════════════════╗
+║  PART 2: DIVISION JULY WATER AREA         ║
+║  8 Divisions | 2015-2025 | July only       ║
+╚══════════════════════════════════════════╝
+Format: Division | Year | July Water Area (km²)
+---
+Barisal | 2015 | 2304.9 km²
+Chittagong | 2015 | 2567.0 km²
+Khulna | 2015 | 2968.7 km²
+Rajshahi | 2015 | 3893.6 km²
+Sylhet | 2015 | 3921.2 km²
+Rangpur | 2015 | 1751.4 km²
+Dhaka | 2015 | 5027.0 km²
+
+╔══════════════════════════════════════════╗
+║  PART 3: SENTINEL-1 SCENE COUNT PER YEAR          ║
+╚══════════════════════════════════════════╝
+S1 Scenes 2015: 304

@@ -11,7 +11,7 @@ for (pkg in required_pkgs) {
 }
 
 # --- 1. ডেটা লোড ---
-file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis Paper/data/GEE_data/Final_Interpolated_Master_Dataset_2015_2025.csv"
+file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/Final_Interpolated_Master_Dataset_GMM.csv"
 if (!file.exists(file_path)) stop("Master CSV not found! Check the path.")
 
 df <- read.csv(file_path)
@@ -24,7 +24,7 @@ df$MonthName <- factor(month_names[df$Month], levels = month_names)
 
 # রিজিয়ন টাইপ নির্ধারণ করা
 df$RegionType <- case_when(
-  df$Class == "Bangladesh" ~ "National",
+  df$Scope == "National" ~ "National",
   grepl("_Division", df$Class) ~ "Division",
   grepl("_District", df$Class) ~ "District",
   TRUE ~ "Unknown"
@@ -45,7 +45,7 @@ if (!dir.exists(fig_dir)) dir.create(fig_dir, recursive = TRUE)
 # ═══════════════════════════════════════════════════════════════════
 # 2. জাতীয় পর্যায়ের পরিসংখ্যান (NATIONAL STATISTICS)
 # ═══════════════════════════════════════════════════════════════════
-nat <- df %>% filter(Class == "Bangladesh")
+nat <- df %>% filter(Scope == "National")
 
 cat("═══════════════════════════════════════════════\n")
 cat("STATISTICAL ANALYSIS — SAR Surface Water Paper\n")

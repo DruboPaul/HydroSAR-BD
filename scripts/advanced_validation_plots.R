@@ -8,7 +8,7 @@ library(RColorBrewer)
 
 # 1. Load Data
 # Updated path to your official NDWI validation file
-data_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis Paper/data/Sample_Points/SAR_Water_Validation_with_NDWI_2025_Robust.csv"
+data_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/Sample_Points/SAR_Water_Validation_with_NDWI_2025_Robust.csv"
 df <- read.csv(data_path)
 
 # Prepare seasons and months

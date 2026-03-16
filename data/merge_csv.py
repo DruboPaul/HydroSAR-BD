@@ -7,7 +7,7 @@ import os
 
 # ফোল্ডার পাথ
 gee_folder = os.path.join(os.path.dirname(__file__), "GEE_data")
-output_file = os.path.join(os.path.dirname(__file__), "GEE_data", "Final_Master_Dataset_2015_2025.csv")
+output_file = os.path.join(os.path.dirname(__file__), "GEE_data", "Final_Master_Dataset_GMM_2015_2025.csv")
 
 # সব CSV ফাইল খুঁজে বের করা
 csv_files = sorted(glob.glob(os.path.join(gee_folder, "Master_Dataset_Part*.csv")))
