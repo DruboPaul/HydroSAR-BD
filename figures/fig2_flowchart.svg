@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1020" viewBox="0 0 720 1020" role="img">
+  <title>Methodology flowchart for ST-GMM surface water monitoring framework</title>
+  <desc>Three-tier architecture showing data inputs, core ST-GMM processing framework with five analytical modules, and output products with independent validation stream.</desc>
+
+  <defs>
+    <style>
+      text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+    </style>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 2L7 5L1 8" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowDash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 2L7 5L1 8" fill="none" stroke="#2E7D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 2L7 5L1 8" fill="none" stroke="#5C4DBF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowThin" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M1 2.5L7 5L1 7.5" fill="none" stroke="#777" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- ============================================= -->
+  <!-- BACKGROUND                                    -->
+  <!-- ============================================= -->
+  <rect width="720" height="1020" fill="#FAFAFA" rx="0"/>
+
+  <!-- ============================================= -->
+  <!-- TIER LABELS (rotated, left margin)             -->
+  <!-- ============================================= -->
+  <text x="22" y="105" text-anchor="middle" transform="rotate(-90,22,105)" font-size="9" fill="#888" letter-spacing="0.12em" font-weight="600">DATA INPUTS</text>
+  <text x="22" y="460" text-anchor="middle" transform="rotate(-90,22,460)" font-size="9" fill="#888" letter-spacing="0.12em" font-weight="600">CORE FRAMEWORK</text>
+  <text x="22" y="855" text-anchor="middle" transform="rotate(-90,22,855)" font-size="9" fill="#888" letter-spacing="0.12em" font-weight="600">OUTPUTS &amp; VALIDATION</text>
+
+  <!-- ============================================= -->
+  <!-- TIER SEPARATOR LINES                          -->
+  <!-- ============================================= -->
+  <line x1="42" y1="168" x2="688" y2="168" stroke="#ccc" stroke-width="0.6" stroke-dasharray="5 4"/>
+  <line x1="42" y1="750" x2="688" y2="750" stroke="#ccc" stroke-width="0.6" stroke-dasharray="5 4"/>
+
+  <!-- ============================================================== -->
+  <!--  TIER 1 — DATA INPUTS                                          -->
+  <!-- ============================================================== -->
+
+  <!-- Box: Sentinel-1 SAR -->
+  <rect x="60" y="56" width="175" height="56" rx="6" fill="#DCEEFB" stroke="#1565C0" stroke-width="0.8"/>
+  <text x="147.5" y="77" text-anchor="middle" font-size="13" font-weight="600" fill="#0D47A1">Sentinel-1 SAR</text>
+  <text x="147.5" y="95" text-anchor="middle" font-size="10.5" fill="#1976D2">7,891 IW-GRD VV scenes</text>
+
+  <!-- Box: Ground-truth Reference -->
+  <rect x="268" y="56" width="175" height="56" rx="6" fill="#DCEDC8" stroke="#388E3C" stroke-width="0.8"/>
+  <text x="355.5" y="77" text-anchor="middle" font-size="13" font-weight="600" fill="#1B5E20">Ground-truth reference</text>
+  <text x="355.5" y="95" text-anchor="middle" font-size="10.5" fill="#2E7D32">4,310 stratified field obs.</text>
+
+  <!-- Box: Ancillary Data -->
+  <rect x="476" y="56" width="185" height="56" rx="6" fill="#ECEFF1" stroke="#607D8B" stroke-width="0.8"/>
+  <text x="568.5" y="77" text-anchor="middle" font-size="13" font-weight="600" fill="#37474F">Ancillary data</text>
+  <text x="568.5" y="95" text-anchor="middle" font-size="10.5" fill="#546E7A">SRTM DEM · FAO GAUL · ERA5</text>
+
+  <!-- Arrows from input boxes downward -->
+  <line x1="147.5" y1="112" x2="147.5" y2="186" stroke="#555" stroke-width="1.3" marker-end="url(#arrowGray)"/>
+  <line x1="568.5" y1="112" x2="568.5" y2="186" stroke="#555" stroke-width="1.3" marker-end="url(#arrowGray)"/>
+  <!-- Ground-truth: dashed line going down to validation (routed along left side) -->
+  <path d="M355.5 112 L355.5 140 L86 140 L86 700 L158 700" fill="none" stroke="#2E7D32" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arrowDash)"/>
+
+  <!-- ============================================================== -->
+  <!--  TIER 2 — CORE FRAMEWORK                                       -->
+  <!-- ============================================================== -->
+
+  <!-- Box: SAR Pre-processing -->
+  <rect x="60" y="186" width="175" height="50" rx="6" fill="#F5F5F5" stroke="#78909C" stroke-width="0.7"/>
+  <text x="147.5" y="206" text-anchor="middle" font-size="12.5" font-weight="600" fill="#37474F">SAR pre-processing</text>
+  <text x="147.5" y="223" text-anchor="middle" font-size="10" fill="#607D8B">Orbit · Calibration · Terrain</text>
+
+  <!-- Box: Topographic Masking -->
+  <rect x="476" y="186" width="185" height="50" rx="6" fill="#F5F5F5" stroke="#78909C" stroke-width="0.7"/>
+  <text x="568.5" y="206" text-anchor="middle" font-size="12.5" font-weight="600" fill="#37474F">Topographic masking</text>
+  <text x="568.5" y="223" text-anchor="middle" font-size="10" fill="#607D8B">SRTM slope ≤ 5° filter</text>
+
+  <!-- Connecting lines from pre-processing / topo to ST-GMM -->
+  <line x1="147.5" y1="236" x2="147.5" y2="270" stroke="#666" stroke-width="1"/>
+  <line x1="568.5" y1="236" x2="568.5" y2="270" stroke="#666" stroke-width="1"/>
+  <line x1="147.5" y1="270" x2="248" y2="270" stroke="#666" stroke-width="1"/>
+  <line x1="472" y1="270" x2="568.5" y2="270" stroke="#666" stroke-width="1"/>
+  <line x1="248" y1="270" x2="248" y2="296" stroke="#666" stroke-width="1" marker-end="url(#arrowGray)"/>
+  <line x1="472" y1="270" x2="472" y2="296" stroke="#666" stroke-width="1" marker-end="url(#arrowGray)"/>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!--  ST-GMM HIGHLIGHT BOX (novel contribution)   -->
+  <!-- ──────────────────────────────────────────── -->
+  <rect x="228" y="290" width="374" height="140" rx="10" fill="none" stroke="#5C4DBF" stroke-width="1.8" stroke-dasharray="6 3" opacity="0.75"/>
+
+  <!-- Header band -->
+  <rect x="238" y="300" width="354" height="44" rx="7" fill="#EDE7F6" stroke="#5C4DBF" stroke-width="0.7"/>
+  <text x="415" y="317" text-anchor="middle" font-size="13.5" font-weight="700" fill="#311B92">ST-GMM threshold calibration</text>
+  <text x="415" y="335" text-anchor="middle" font-size="10.5" fill="#5C4DBF">Spatiotemporally Adaptive Gaussian Mixture Model</text>
+
+  <!-- NOVEL badge -->
+  <rect x="540" y="286" width="56" height="18" rx="9" fill="#5C4DBF" opacity="0.92"/>
+  <text x="568" y="298" text-anchor="middle" font-size="9" font-weight="700" fill="#EDE7F6" letter-spacing="0.06em">NOVEL</text>
+
+  <!-- Sub-step 1: EM optimisation -->
+  <rect x="238" y="356" width="168" height="62" rx="5" fill="#EDE7F6" stroke="#5C4DBF" stroke-width="0.5" opacity="0.8"/>
+  <text x="322" y="375" text-anchor="middle" font-size="12.5" font-weight="600" fill="#311B92">EM optimisation</text>
+  <text x="322" y="393" text-anchor="middle" font-size="10" fill="#5C4DBF">NDWI-bridged initialisation</text>
+  <text x="322" y="408" text-anchor="middle" font-size="10" fill="#5C4DBF">64 districts × 12 months</text>
+
+  <!-- Sub-step 2: Decision boundary -->
+  <rect x="424" y="356" width="168" height="62" rx="5" fill="#EDE7F6" stroke="#5C4DBF" stroke-width="0.5" opacity="0.8"/>
+  <text x="508" y="375" text-anchor="middle" font-size="12.5" font-weight="600" fill="#311B92">Decision boundary</text>
+  <text x="508" y="393" text-anchor="middle" font-size="10" fill="#5C4DBF">P(W|x) = P(L|x)</text>
+  <text x="508" y="408" text-anchor="middle" font-size="10" fill="#5C4DBF">100% convergence</text>
+
+  <!-- Arrow between substeps -->
+  <line x1="406" y1="387" x2="424" y2="387" stroke="#5C4DBF" stroke-width="1.3" marker-end="url(#arrowPurple)"/>
+
+  <!-- Arrow out of ST-GMM box -->
+  <line x1="415" y1="430" x2="415" y2="466" stroke="#555" stroke-width="1.3" marker-end="url(#arrowGray)"/>
+
+  <!-- ── Monthly Compositing ── -->
+  <rect x="258" y="466" width="314" height="52" rx="7" fill="#DCEEFB" stroke="#1565C0" stroke-width="0.7"/>
+  <text x="415" y="486" text-anchor="middle" font-size="13" font-weight="600" fill="#0D47A1">Monthly median VV composite</text>
+  <text x="415" y="504" text-anchor="middle" font-size="10.5" fill="#1976D2">Binary water mask W_dt per district-month</text>
+
+  <!-- Arrow to analytical modules -->
+  <line x1="415" y1="518" x2="415" y2="555" stroke="#555" stroke-width="1.3" marker-end="url(#arrowGray)"/>
+
+  <!-- ── FIVE ANALYTICAL MODULES (dashed container) ── -->
+  <rect x="58" y="555" width="604" height="86" rx="8" fill="none" stroke="#999" stroke-width="0.6" stroke-dasharray="6 3"/>
+  <text x="72" y="568" font-size="8.5" fill="#888" letter-spacing="0.08em" font-weight="600">ANALYTICAL MODULES</text>
+
+  <!-- Module 1 -->
+  <rect x="68" y="576" width="104" height="54" rx="5" fill="#DCEEFB" stroke="#1565C0" stroke-width="0.6"/>
+  <text x="120" y="595" text-anchor="middle" font-size="12" font-weight="600" fill="#0D47A1">Occurrence</text>
+  <text x="120" y="610" text-anchor="middle" font-size="9.5" fill="#1976D2">frequency</text>
+  <text x="120" y="623" text-anchor="middle" font-size="9.5" fill="#1976D2">mapping</text>
+
+  <!-- Module 2 -->
+  <rect x="184" y="576" width="104" height="54" rx="5" fill="#DCEEFB" stroke="#1565C0" stroke-width="0.6"/>
+  <text x="236" y="595" text-anchor="middle" font-size="12" font-weight="600" fill="#0D47A1">Change</text>
+  <text x="236" y="610" text-anchor="middle" font-size="9.5" fill="#1976D2">detection</text>
+  <text x="236" y="623" text-anchor="middle" font-size="9.5" fill="#1976D2">gain / loss</text>
+
+  <!-- Module 3 -->
+  <rect x="300" y="576" width="114" height="54" rx="5" fill="#DCEEFB" stroke="#1565C0" stroke-width="0.6"/>
+  <text x="357" y="595" text-anchor="middle" font-size="12" font-weight="600" fill="#0D47A1">Seasonal</text>
+  <text x="357" y="610" text-anchor="middle" font-size="9.5" fill="#1976D2">footprint</text>
+  <text x="357" y="623" text-anchor="middle" font-size="9.5" fill="#1976D2">4 seasons</text>
+
+  <!-- Module 4 -->
+  <rect x="426" y="576" width="104" height="54" rx="5" fill="#DCEEFB" stroke="#1565C0" stroke-width="0.6"/>
+  <text x="478" y="595" text-anchor="middle" font-size="12" font-weight="600" fill="#0D47A1">Trend</text>
+  <text x="478" y="610" text-anchor="middle" font-size="9.5" fill="#1976D2">analysis</text>
+  <text x="478" y="623" text-anchor="middle" font-size="9.5" fill="#1976D2">MK · Sen's β</text>
+
+  <!-- Module 5 -->
+  <rect x="542" y="576" width="104" height="54" rx="5" fill="#DCEEFB" stroke="#1565C0" stroke-width="0.6"/>
+  <text x="594" y="595" text-anchor="middle" font-size="12" font-weight="600" fill="#0D47A1">Area</text>
+  <text x="594" y="610" text-anchor="middle" font-size="9.5" fill="#1976D2">calculation</text>
+  <text x="594" y="623" text-anchor="middle" font-size="9.5" fill="#1976D2">GEE pixels</text>
+
+  <!-- Short vertical lines from composite to each module -->
+  <line x1="120" y1="555" x2="120" y2="576" stroke="#999" stroke-width="0.7"/>
+  <line x1="236" y1="555" x2="236" y2="576" stroke="#999" stroke-width="0.7"/>
+  <line x1="357" y1="555" x2="357" y2="576" stroke="#999" stroke-width="0.7"/>
+  <line x1="478" y1="555" x2="478" y2="576" stroke="#999" stroke-width="0.7"/>
+  <line x1="594" y1="555" x2="594" y2="576" stroke="#999" stroke-width="0.7"/>
+
+  <!-- Arrows from modules downward to validation and outputs -->
+  <line x1="120" y1="630" x2="120" y2="760" stroke="#777" stroke-width="0.7" marker-end="url(#arrowThin)"/>
+  <line x1="236" y1="630" x2="236" y2="760" stroke="#777" stroke-width="0.7" marker-end="url(#arrowThin)"/>
+  <line x1="357" y1="630" x2="357" y2="760" stroke="#777" stroke-width="0.7" marker-end="url(#arrowThin)"/>
+  <line x1="478" y1="630" x2="478" y2="760" stroke="#777" stroke-width="0.7" marker-end="url(#arrowThin)"/>
+  <line x1="594" y1="630" x2="594" y2="760" stroke="#777" stroke-width="0.7" marker-end="url(#arrowThin)"/>
+
+  <!-- ── VALIDATION STREAM ── -->
+  <rect x="158" y="660" width="502" height="72" rx="7" fill="#DCEDC8" stroke="#388E3C" stroke-width="0.7"/>
+  <text x="409" y="682" text-anchor="middle" font-size="13" font-weight="600" fill="#1B5E20">Independent accuracy assessment</text>
+  <text x="409" y="700" text-anchor="middle" font-size="10" fill="#2E7D32">OA 92.55% · κ 0.85 · McNemar vs Otsu (χ²=142.8, p&lt;0.001) · IoU 0.896 vs Sentinel-2</text>
+  <text x="409" y="716" text-anchor="middle" font-size="10" fill="#2E7D32">Benchmarked: Random Forest · Otsu · JRC GSW</text>
+
+  <!-- ============================================================== -->
+  <!--  TIER 3 — OUTPUT PRODUCTS                                      -->
+  <!-- ============================================================== -->
+
+  <!-- Output 1 -->
+  <rect x="60" y="764" width="118" height="60" rx="6" fill="#DCEDC8" stroke="#388E3C" stroke-width="0.7"/>
+  <text x="119" y="782" text-anchor="middle" font-size="12" font-weight="600" fill="#1B5E20">Water</text>
+  <text x="119" y="797" text-anchor="middle" font-size="12" font-weight="600" fill="#1B5E20">occurrence map</text>
+  <text x="119" y="814" text-anchor="middle" font-size="9.5" fill="#388E3C">Perm · semi · eph.</text>
+
+  <!-- Output 2 -->
+  <rect x="190" y="764" width="118" height="60" rx="6" fill="#DCEDC8" stroke="#388E3C" stroke-width="0.7"/>
+  <text x="249" y="782" text-anchor="middle" font-size="12" font-weight="600" fill="#1B5E20">Change</text>
+  <text x="249" y="797" text-anchor="middle" font-size="12" font-weight="600" fill="#1B5E20">detection map</text>
+  <text x="249" y="814" text-anchor="middle" font-size="9.5" fill="#388E3C">2015–2025</text>
+
+  <!-- Output 3 -->
+  <rect x="320" y="764" width="118" height="60" rx="6" fill="#DCEDC8" stroke="#388E3C" stroke-width="0.7"/>
+  <text x="379" y="782" text-anchor="middle" font-size="12" font-weight="600" fill="#1B5E20">Seasonal water</text>
+  <text x="379" y="797" text-anchor="middle" font-size="12" font-weight="600" fill="#1B5E20">footprint atlas</text>
+  <text x="379" y="814" text-anchor="middle" font-size="9.5" fill="#388E3C">4-season composites</text>
+
+  <!-- Output 4 -->
+  <rect x="450" y="764" width="118" height="60" rx="6" fill="#DCEDC8" stroke="#388E3C" stroke-width="0.7"/>
+  <text x="509" y="782" text-anchor="middle" font-size="12" font-weight="600" fill="#1B5E20">Decadal trend</text>
+  <text x="509" y="797" text-anchor="middle" font-size="12" font-weight="600" fill="#1B5E20">statistics</text>
+  <text x="509" y="814" text-anchor="middle" font-size="9.5" fill="#388E3C">Div. · national scale</text>
+
+  <!-- Output 5 (open dataset — distinct color) -->
+  <rect x="580" y="764" width="82" height="60" rx="6" fill="#FBE9E7" stroke="#BF360C" stroke-width="0.7"/>
+  <text x="621" y="782" text-anchor="middle" font-size="12" font-weight="600" fill="#BF360C">Open</text>
+  <text x="621" y="797" text-anchor="middle" font-size="12" font-weight="600" fill="#BF360C">dataset</text>
+  <text x="621" y="814" text-anchor="middle" font-size="9.5" fill="#D84315">2015–2025</text>
+
+  <!-- ============================================= -->
+  <!-- PLATFORM NOTE                                 -->
+  <!-- ============================================= -->
+  <rect x="60" y="846" width="602" height="34" rx="6" fill="none" stroke="#bbb" stroke-width="0.5" stroke-dasharray="4 3"/>
+  <text x="361" y="867" text-anchor="middle" font-size="10" fill="#777">Processing platform: Google Earth Engine (GEE) · Statistical analysis: R v4.5.2 · All 7,891 scenes processed cloud-based</text>
+
+  <!-- ============================================= -->
+  <!-- LEGEND                                        -->
+  <!-- ============================================= -->
+  <rect x="60" y="900" width="14" height="14" rx="3" fill="#DCEEFB" stroke="#1565C0" stroke-width="0.6"/>
+  <text x="80" y="912" font-size="10" fill="#444" dominant-baseline="central">SAR processing &amp; analysis</text>
+
+  <rect x="218" y="900" width="14" height="14" rx="3" fill="#DCEDC8" stroke="#388E3C" stroke-width="0.6"/>
+  <text x="238" y="912" font-size="10" fill="#444" dominant-baseline="central">Outputs &amp; validation</text>
+
+  <rect x="370" y="900" width="14" height="14" rx="3" fill="#EDE7F6" stroke="#5C4DBF" stroke-width="0.6"/>
+  <text x="390" y="912" font-size="10" fill="#444" dominant-baseline="central">Novel ST-GMM framework</text>
+
+  <rect x="542" y="900" width="14" height="14" rx="3" fill="#FBE9E7" stroke="#BF360C" stroke-width="0.6"/>
+  <text x="562" y="912" font-size="10" fill="#444" dominant-baseline="central">Open archive release</text>
+
+  <!-- ============================================= -->
+  <!-- EQUATION CALLOUT (bottom-left, subtle)        -->
+  <!-- ============================================= -->
+  <rect x="60" y="936" width="602" height="60" rx="6" fill="#FAFAFA" stroke="#ddd" stroke-width="0.5"/>
+  <text x="80" y="954" font-size="9" font-weight="600" fill="#666" letter-spacing="0.06em">KEY EQUATIONS</text>
+  <text x="80" y="972" font-size="9.5" fill="#555" font-style="italic">p(x | θ_dt) = π_W · N(x | μ_W, σ²_W) + π_L · N(x | μ_L, σ²_L)</text>
+  <text x="80" y="986" font-size="9.5" fill="#555" font-style="italic">W_dt = 1   if  σ⁰_dt ≤ τ_dt  and  ξ ≤ 5°;   0  otherwise</text>
+  <text x="500" y="972" font-size="8.5" fill="#888">Eq. 1 — GMM density</text>
+  <text x="500" y="986" font-size="8.5" fill="#888">Eq. 2 — Classification rule</text>
+
+</svg>
