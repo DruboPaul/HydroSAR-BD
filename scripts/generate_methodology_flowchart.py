@@ -94,10 +94,14 @@ def generate_flowchart():
     draw_arrow(ax, 6.5, 8.2, 6.5, 7.8)
     
     # ST-GMM Box
-    stgmm_bg = patches.FancyBboxPatch((2.2, 5.8), 5.6, 1.8, boxstyle="round,pad=0.2", fill=False, edgecolor=c_stgmm[1], lw=2, hatch='...', zorder=0)
+    stgmm_bg = patches.FancyBboxPatch((2.2, 5.6), 5.6, 2.2, boxstyle="round,pad=0.1", fill=False, edgecolor=c_stgmm[1], lw=1.5, linestyle='--', zorder=0)
     ax.add_patch(stgmm_bg)
-    ax.text(5, 7.7, "ST-GMM threshold calibration", ha='center', va='bottom', fontsize=11, fontweight='bold', color=c_stgmm[1])
-    ax.text(5, 7.5, "Spatiotemporally Adaptive Gaussian Mixture Model", ha='center', va='top', fontsize=9, color=c_stgmm[1])
+    
+    stgmm_head = patches.FancyBboxPatch((2.6, 7.3), 4.8, 0.45, boxstyle="round,pad=0.05", facecolor='#EDE7F6', edgecolor=c_stgmm[1], lw=1.0, zorder=1)
+    ax.add_patch(stgmm_head)
+    
+    ax.text(5, 7.55, "ST-GMM threshold calibration", ha='center', va='bottom', fontsize=11, fontweight='bold', color=c_stgmm[1], zorder=2)
+    ax.text(5, 7.45, "Spatiotemporally Adaptive Gaussian Mixture Model", ha='center', va='top', fontsize=9, color=c_stgmm[1], zorder=2)
     
     draw_box(ax, 3.5, 6.5, 2.4, 0.7, "EM optimisation", "NDWI-bridged initialisation\n64 districts × 12 months", c_stgmm[0], c_stgmm[1])
     draw_box(ax, 6.5, 6.5, 2.4, 0.7, "Decision boundary", "P(W|x) = P(L|x)\n100% convergence", c_stgmm[0], c_stgmm[1])
@@ -119,7 +123,7 @@ def generate_flowchart():
         (6.75, "Trend", "analysis\nMK • Sen's β"),
         (8.5, "Area", "calculation\nGEE pixels")
     ]
-    ax.text(5, 4.15, "ANALYTICAL MODULES", ha='center', va='bottom', fontsize=9, fontweight='bold', color='#666')
+    ax.text(5, 4.25, "ANALYTICAL MODULES", ha='center', va='center', fontsize=9, fontweight='bold', color='#666', bbox=dict(facecolor='white', edgecolor='none', pad=2), zorder=2)
     for m in mods:
         draw_arrow(ax, m[0], 4.0, m[0], 3.6)
         draw_box(ax, m[0], 3.2, 1.5, 0.7, m[1], m[2], c_s1[0], c_s1[1])
