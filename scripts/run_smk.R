@@ -1,26 +1,41 @@
 library(trend)
 
-file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/Final_Interpolated_Master_Dataset_GMM.csv"
+base_dir <- normalizePath(file.path(dirname(sys.frame(1)$ofile), ".."))
+file_path <- file.path(base_dir, "data", "GEE_data", "computed_results", "national_monthly_water_area_2015_2025.csv")
 df <- read.csv(file_path)
 
-# Filter National Data
-df_nat <- subset(df, Scope == "National")
+# Full monthly dataset
+df_full <- df
 
-# Sort chronologically by year and month
-df_nat <- df_nat[order(df_nat$Year, df_nat$Month), ]
+# Filter July for annual peak trend analysis
+df_july <- subset(df, month == 7)
 
-cat("Total months:", nrow(df_nat), "\n")
+# Sort chronologically
+df_july <- df_july[order(df_july$year), ]
 
-# Create a time series object for the area (frequency = 12 months)
-ts_data <- ts(df_nat$Area_km2, start = c(2015, 1), frequency = 12)
+cat("Total months:", nrow(df_full), "\n")
+cat("July observations:", nrow(df_july), "\n")
 
-# Perform Seasonal Mann-Kendall Test
+# Create time series for full monthly data (for seasonal MK)
+df_full <- df_full[order(df_full$year, df_full$month), ]
+ts_data <- ts(df_full$water_area_calibrated_km2, start = c(2015, 1), frequency = 12)
+
+# Perform Seasonal Mann-Kendall Test on full monthly series
 smk <- smk.test(ts_data)
-cat("\n--- Seasonal Mann-Kendall Test ---\n")
+cat("\n--- Seasonal Mann-Kendall Test (Full Monthly) ---\n")
 print(smk)
 
-# Perform Sen's Slope
+# Sen's Slope on full monthly series
 sen <- sens.slope(ts_data)
-cat("\n--- Sen's Slope ---\n")
+cat("\n--- Sen's Slope (Full Monthly) ---\n")
 print(sen)
 cat("Sen's Slope (Annualized):", sen$estimates * 12, "km2/year\n")
+
+# Mann-Kendall on July peak series (n=11)
+cat("\n--- Mann-Kendall Test (July Peak, n=11) ---\n")
+july_vals <- df_july$water_area_calibrated_km2
+mk_july <- mk.test(july_vals)
+print(mk_july)
+
+sen_july <- sens.slope(ts(july_vals, start = 2015, frequency = 1))
+cat("\nSen's Slope (July):", sen_july$estimates, "km2/year\n")

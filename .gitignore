@@ -1,20 +1,32 @@
-# Large binaries
-Drive_download/
-*.tif
-*.tiff
-*.zip
-*.rar
+# Large data files (include only computed results)
+Bangladesh_District_VV_Histograms_2015_2025.csv
+data/GEE_data/Bangladesh_District_VV_Histograms_2015_2025.csv
+data/GEE_data/GMM_Uncertainty_Parameters_Bangladesh.csv
 
-# Python environment
-__pycache__/
-*.pyc
-venv/
-.env
+# Backups
+7_Manuscript/backup/
+figures_backup_original/
 
-# IDE artifacts
-.idea/
-.vscode/
+# Temp/debug files
+test *.pdf
+METHODOLOGY.html
+METHODOLOGY.md
+METHODOLOGY_Detailed.pdf
+scripts/temp_acc.py
+scripts/debug_seasonal_histograms.py
 
-# Temporary data
-/tmp/
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# LaTeX build artifacts
+*.aux
 *.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls

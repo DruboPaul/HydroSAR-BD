@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
 
+import os
+
 # Load data
-file_path = r'd:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Sample_Points\Final_Binary_Field_Validation_2025.csv'
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+file_path = os.path.join(base_dir, 'data', 'Sample_Points', 'Final_Binary_Field_Validation_2025.csv')
 df = pd.read_csv(file_path)
 
 # Drop rows with NaNs if any (GEE sometimes outputs them if pixels are masked)

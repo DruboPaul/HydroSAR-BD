@@ -31,8 +31,8 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # ─── Config ──────────────────────────────────────────────────────────────────────
-CSV_PATH = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\ee-chart.csv"
-OUTPUT_DIR = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\figures"
+CSV_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "GEE_data", "ee-chart.csv")
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "figures")
 N_COMPONENTS = 2  # Water + Land
 
 # This CSV is from July 2020
