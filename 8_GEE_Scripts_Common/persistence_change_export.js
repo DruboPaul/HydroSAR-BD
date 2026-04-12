@@ -2,7 +2,7 @@
  WATER PERSISTENCE & CHANGE DETECTION EXPORT
  
  PART 1: Persistence Classification (2023)
- - Permanent: Water in ≥ 10 months
+ - Permanent: Water in >= 10 months
  - Semi-permanent: Water in 5-9 months
  - Ephemeral: Water in 1-4 months
  
@@ -12,10 +12,10 @@
  - Lost: Water in 2015 but not 2024
  
  HOW TO USE:
- 1. GEE-তে পেস্ট করে Run করুন
- 2. Console-এ ফলাফল আসা পর্যন্ত ৫-১০ মিনিট অপেক্ষা করুন
- 3. ফলাফল কপি করে আমাকে দিন
-************************************************************/
+ 1. Paste this into Google Earth Engine and click Run.
+ 2. Wait 5-10 minutes for results to appear in the Console.
+ 3. Copy results for analysis.
+ ************************************************************/
 
 var bdBoundary = ee.FeatureCollection('projects/ee-mbokshi45/assets/bdshp');
 var bdGeom = bdBoundary.geometry();
@@ -87,15 +87,15 @@ ee.Dictionary({
     Ephemeral: eArea,
     Land: lArea
 }).evaluate(function (r, error) {
-    if (error) { print('❌ Part 1 Error: ' + error); return; }
+    if (error) { print('Part 1 Error: ' + error); return; }
     print('╔══════════════════════════════════════════╗');
     print('║  PART 1: WATER PERSISTENCE (2023)       ║');
     print('╚══════════════════════════════════════════╝');
     var total = r.Permanent + r.SemiPermanent + r.Ephemeral + r.Land;
-    print('Permanent (≥10 months): ' + (r.Permanent / 1e6).toFixed(1) + ' km² (' + (r.Permanent / total * 100).toFixed(1) + '%)');
-    print('Semi-permanent (5-9): ' + (r.SemiPermanent / 1e6).toFixed(1) + ' km² (' + (r.SemiPermanent / total * 100).toFixed(1) + '%)');
-    print('Ephemeral (1-4): ' + (r.Ephemeral / 1e6).toFixed(1) + ' km² (' + (r.Ephemeral / total * 100).toFixed(1) + '%)');
-    print('No Water (0 months): ' + (r.Land / 1e6).toFixed(1) + ' km²');
+    print('Permanent (>=10 months): ' + (r.Permanent / 1e6).toFixed(1) + ' km2 (' + (r.Permanent / total * 100).toFixed(1) + '%)');
+    print('Semi-permanent (5-9): ' + (r.SemiPermanent / 1e6).toFixed(1) + ' km2 (' + (r.SemiPermanent / total * 100).toFixed(1) + '%)');
+    print('Ephemeral (1-4): ' + (r.Ephemeral / 1e6).toFixed(1) + ' km2 (' + (r.Ephemeral / total * 100).toFixed(1) + '%)');
+    print('No Water (0 months): ' + (r.Land / 1e6).toFixed(1) + ' km2');
 });
 
 /* ====================================================
@@ -119,12 +119,12 @@ ee.Dictionary({
     Lost: lAreaChange,
     Stable: sAreaChange
 }).evaluate(function (r, error) {
-    if (error) { print('❌ Part 2 Error: ' + error); return; }
+    if (error) { print('Part 2 Error: ' + error); return; }
     print('╔══════════════════════════════════════════╗');
     print('║  PART 2: JULY CHANGE (2015 vs 2024)      ║');
     print('╚══════════════════════════════════════════╝');
     var totalWater = r.Gained + r.Lost + r.Stable;
-    print('Gained Water: ' + (r.Gained / 1e6).toFixed(1) + ' km² (' + (r.Gained / totalWater * 100).toFixed(1) + '%)');
-    print('Stable Water: ' + (r.Stable / 1e6).toFixed(1) + ' km² (' + (r.Stable / totalWater * 100).toFixed(1) + '%)');
-    print('Lost Water:   ' + (r.Lost / 1e6).toFixed(1) + ' km² (' + (r.Lost / totalWater * 100).toFixed(1) + '%)');
+    print('Gained Water: ' + (r.Gained / 1e6).toFixed(1) + ' km2 (' + (r.Gained / totalWater * 100).toFixed(1) + '%)');
+    print('Stable Water: ' + (r.Stable / 1e6).toFixed(1) + ' km2 (' + (r.Stable / totalWater * 100).toFixed(1) + '%)');
+    print('Lost Water:   ' + (r.Lost / 1e6).toFixed(1) + ' km2 (' + (r.Lost / totalWater * 100).toFixed(1) + '%)');
 });

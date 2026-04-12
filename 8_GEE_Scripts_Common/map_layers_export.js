@@ -1,16 +1,16 @@
 /************************************************************
  MAP FIGURES EXPORT FOR ARCGIS PRO
  
- এই স্ক্রিপ্টটি ৩টি প্রধান ম্যাপ লেয়ার জিওটিফ (GeoTIFF) হিসেবে এক্সপোর্ট করবে:
- ৫. Monthly Peak Map (July 2025)
- ৬. Water Persistence Map (2025)
- ৭. Change Detection Map (2015 vs 2025 July)
+ This script exports 3 main map layers as GeoTIFF files:
+ 1. Monthly Peak Map (July 2025)
+ 2. Water Persistence Map (2025)
+ 3. Change Detection Map (2015 vs 2025 July)
  
  HOW TO USE:
- ১. GEE-তে Run করুন।
- ২. ডানদিকের 'Tasks' ট্যাব থেকে ৩টি টাস্ক 'Run' এ ক্লিক করুন।
- ৩. ডাউনলোড হলে ArcGIS Pro-তে অ্যাড করে Symbology ঠিক করুন।
-************************************************************/
+ 1. Click Run in GEE.
+ 2. Click 'Run' for the tasks in the 'Tasks' tab.
+ 3. After download, add to GIS software and adjust Symbology.
+ ************************************************************/
 
 var bdBoundary = ee.FeatureCollection('projects/ee-mbokshi45/assets/bdshp');
 var bdGeom = bdBoundary.geometry();
@@ -51,7 +51,7 @@ Export.image.toDrive({
     fileFormat: 'GeoTIFF'
 });
 
-// --- 2. Persistence Map (2023) ---
+// --- 2. Persistence Map (2025) ---
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var monthImages = months.map(function (m) {
     // Use thresholds object properly
