@@ -35,6 +35,7 @@ HydroSAR-BD/
 │   ├── batch_gmm_processor.py        # Stage 2: Fit GMM -> threshold lookup table
 │   ├── compute_water_area_from_histograms.py  # Stage 3: Apply thresholds -> water areas
 │   ├── generate_all_figures.py       # Stage 5: Publication figures (Python)
+│   ├── generate_methodology_flowchart.py # Stage 5: Reproducible flowchart drawing
 │   ├── validation_viz.R              # Stage 5: Confusion matrix + monthly accuracy
 │   ├── run_smk.R                     # Stage 4: Mann-Kendall + Sen's slope (R)
 │   ├── generate_supplementary_plot.R # Stage 5: Regional trend plots
@@ -120,6 +121,7 @@ Rscript scripts/run_smk.R
 ### Stage 5: Figure Generation
 
 ```bash
+python scripts/generate_methodology_flowchart.py
 python scripts/generate_all_figures.py
 Rscript scripts/validation_viz.R
 Rscript scripts/generate_supplementary_plot.R
