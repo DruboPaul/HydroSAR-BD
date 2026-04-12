@@ -5,7 +5,7 @@ import numpy as np
 import os
 
 # ─── Data Access ──────────────────────────────────────────────────
-DATA_PATH = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Final_Interpolated_Master_Dataset_GMM.csv"
+DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "Final_Interpolated_Master_Dataset_GMM.csv")
 df_master = pd.read_csv(DATA_PATH)
 nat_df = df_master[df_master['Scope'] == 'National'].copy()
 
@@ -88,7 +88,7 @@ def fig4_monthly_timeseries():
     path = os.path.join(OUTPUT_DIR, 'fig4_monthly_timeseries.png')
     plt.savefig(path)
     plt.close()
-    print(f'✅ Saved: {path}')
+    print(f'Saved: {path}')
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -289,5 +289,5 @@ if __name__ == '__main__':
     print('  Fig 5  — Occurrence Map 2023     (GEE screenshot)')
     print('  Fig 6  — Seasonal Maps ×4        (GEE screenshots)')
     print('  Fig 8  — Change Detection Map    (GEE screenshot)')
-    print('  Fig 9  — ⚠️  UPDATE with real GEE data (currently placeholder)')
+    print('  Fig 9  — UPDATE with real GEE data (currently placeholder)')
     print('=' * 60)

@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.metrics import confusion_matrix, accuracy_score, cohen_kappa_score
 
 # Configuration
-csv_path = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Sample_Points\Final_Binary_Field_Validation_2025.csv"
+csv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "Sample_Points", "Final_Binary_Field_Validation_2025.csv")
 
 def calculate_metrics():
     print("--- GMM Accuracy Assessment (Python Offline Analysis) ---")
@@ -54,9 +54,9 @@ def calculate_metrics():
 
     # Save report
     report_df = pd.DataFrame(monthly_stats)
-    report_path = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\final_accuracy_report_2025.csv"
+    report_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "final_accuracy_report_2025.csv")
     report_df.to_csv(report_path, index=False)
-    print(f"\n✅ Accuracy report saved to: {report_path}")
+    print(f"\nAccuracy report saved to: {report_path}")
 
 if __name__ == "__main__":
     calculate_metrics()

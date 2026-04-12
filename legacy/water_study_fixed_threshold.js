@@ -362,12 +362,12 @@ function runMonthly() {
   resultBox.setValue('');
   var selDiv = divisionSelect.getValue(); var selDist = districtSelect.getValue();
   var selYear = parseInt(yearSelect.getValue()); var selMonth = monthSelect.getValue();
-  if (!selYear) { resultBox.setValue('⚠️ Select year'); return; }
-  if (!selMonth) { resultBox.setValue('⚠️ Select month or Total'); return; }
+  if (!selYear) { resultBox.setValue('Select year'); return; }
+  if (!selMonth) { resultBox.setValue('Select month or Total'); return; }
   var regionInfo = getRegionFeature(selDist, selDiv);
   var regionGeom = ee.Feature(regionInfo.feature).geometry();
 
-  resultBox.setValue('🔄 Processing ' + regionInfo.name + '...');
+  resultBox.setValue('Processing ' + regionInfo.name + '...');
 
   // Store for export
   lastExportYear = selYear;
@@ -386,7 +386,7 @@ function runMonthly() {
       Map.addLayer(occ.updateMask(occ.gt(0)), { min: 1, max: 12, palette: occurrenceColors }, regionInfo.name + ' occurrence ' + selYear);
       Map.add(legendS1);
       drawRegionBoundaryOnly(regionInfo.feature, regionInfo.name + ' Boundary');
-      resultBox.setValue('Total occurrence: ' + selYear + ' | GeoTIFF ready ✅');
+      resultBox.setValue('Total occurrence: ' + selYear + ' | GeoTIFF ready');
     } else {
       var start = selYear + '-' + monthMap[selMonth] + '-01';
       var end = selYear + '-' + monthMap[selMonth] + '-' + monthEndDays[selMonth];
@@ -398,7 +398,7 @@ function runMonthly() {
         .select('VV');
       var count = s1col.size().getInfo();
       if (count === 0) {
-        resultBox.setValue('⚠️ No Sentinel-1 images for ' + selMonth + ' ' + selYear + ' in selected region.');
+        resultBox.setValue('No Sentinel-1 images for ' + selMonth + ' ' + selYear + ' in selected region.');
         return;
       }
       var vvMedian = s1col.median().clip(regionGeom);
@@ -409,7 +409,7 @@ function runMonthly() {
 
       Map.addLayer(water.updateMask(water), { palette: ['0000FF'] }, regionInfo.name + ' ' + selMonth + ' ' + selYear);
       drawRegionBoundaryOnly(regionInfo.feature, regionInfo.name + ' Boundary');
-      resultBox.setValue('Water: ' + selMonth + ' ' + selYear + ' (S1: ' + count + ') | GeoTIFF ready ✅');
+      resultBox.setValue('Water: ' + selMonth + ' ' + selYear + ' (S1: ' + count + ') | GeoTIFF ready');
     }
   } catch (err) {
     resultBox.setValue('Monthly error: ' + err.message);
@@ -421,8 +421,8 @@ function runChange() {
   resultBox.setValue('');
   var selDiv = divisionSelect.getValue(); var selDist = districtSelect.getValue();
   var y1 = parseInt(visYear1.getValue()); var y2 = parseInt(visYear2.getValue()); var m = visMonthSelect.getValue();
-  if (!y1 || !y2) { resultBox.setValue('⚠️ Select Year1 and Year2'); return; }
-  if (!m) { resultBox.setValue('⚠️ Select month'); return; }
+  if (!y1 || !y2) { resultBox.setValue('Select Year1 and Year2'); return; }
+  if (!m) { resultBox.setValue('Select month'); return; }
   var regionInfo = getRegionFeature(selDist, selDiv);
   var regionGeom = ee.Feature(regionInfo.feature).geometry();
 
@@ -472,8 +472,8 @@ function runSeasonal() {
   resultBox.setValue('');
   var selDiv = divisionSelect.getValue(); var selDist = districtSelect.getValue();
   var y = parseInt(seasonalYear.getValue()); var s = seasonSelect.getValue();
-  if (!y) { resultBox.setValue('⚠️ Select year'); return; }
-  if (!s) { resultBox.setValue('⚠️ Select season'); return; }
+  if (!y) { resultBox.setValue('Select year'); return; }
+  if (!s) { resultBox.setValue('Select season'); return; }
   var regionInfo = getRegionFeature(selDist, selDiv);
   var regionGeom = ee.Feature(regionInfo.feature).geometry();
 
@@ -502,7 +502,7 @@ function runSeasonal() {
     });
 
     if (totalImages === 0) {
-      resultBox.setValue('⚠️ No Sentinel-1 images for the chosen season/year.');
+      resultBox.setValue('No Sentinel-1 images for the chosen season/year.');
       return;
     }
 
@@ -639,7 +639,7 @@ function genChart() {
       return;
     }
 
-    resultBox.setValue('⚠️ Select Year/Month, Change params, or Season first.');
+    resultBox.setValue('Select Year/Month, Change params, or Season first.');
   } catch (err) {
     chartPanel.clear();
     resultBox.setValue('Chart error: ' + err.message);
@@ -652,7 +652,7 @@ function runGeoTIFFExport() {
 
   // Check if monthly analysis has been run first
   if (!multiBandMonthlyImage) {
-    resultBox.setValue('⚠️ Run "Monthly Surface Water" first to prepare data for export.');
+    resultBox.setValue('Run "Monthly Surface Water" first to prepare data for export.');
     return;
   }
 
@@ -833,7 +833,7 @@ function resetAction() {
   yearSelect.setValue('2023'); monthSelect.setValue(null);
   visYear1.setValue('2019'); visYear2.setValue('2023'); visMonthSelect.setValue(null);
   seasonalYear.setValue('2023'); seasonSelect.setValue(null);
-  chartPanel.clear(); resultBox.setValue('🔄 Reset complete.');
+  chartPanel.clear(); resultBox.setValue('Reset complete.');
   multiBandMonthlyImage = null;
   multiBandOccurrenceImage = null;
   lastExportYear = null;

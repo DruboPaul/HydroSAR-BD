@@ -105,4 +105,4 @@ Export.image.toDrive({
     fileFormat: 'GeoTIFF'
 });
 
-print('টাস্কগুলো জেনারেট হয়েছে। ডানদিকের "Tasks" ট্যাব থেকে ডাউনলোড শুরু করুন।');
+print('Tasks generated. Please start downloads from the "Tasks" tab on the right.');

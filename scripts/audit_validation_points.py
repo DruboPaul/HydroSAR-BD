@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import json
 
-file_path = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Sample_Points\Balanced_Validation_Points_2025_Full.csv"
+file_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "Sample_Points", "Balanced_Validation_Points_2025_Full.csv")
 
 def audit_points(path):
     print(f"--- Auditing: {path} ---")
@@ -69,9 +69,9 @@ def audit_points(path):
 
     # 6. Recommendation
     if missing.sum() == 0 and invalid_geo == 0 and out_of_bounds == 0 and duplicates == 0:
-        print("\n✅ CLEAN DATA: No immediate issues found.")
+        print("\nCLEAN DATA: No immediate issues found.")
     else:
-        print("\n⚠️ ISSUES FOUND: Cleaning suggested.")
+        print("\nISSUES FOUND: Cleaning suggested.")
 
 if __name__ == "__main__":
     audit_points(file_path)

@@ -68,8 +68,7 @@ def fit_gmm_and_find_threshold(row):
 
 def main():
     if not os.path.exists(INPUT_CSV):
-        print(f"❌ Error: {INPUT_CSV} not found.")
-        print("Please place the downloaded GEE CSV in the 'data' folder.")
+        print(f"Error: {INPUT_CSV} not found.")
         return
 
     print(f"📖 Reading {INPUT_CSV}...")
@@ -86,7 +85,7 @@ def main():
     else:
         df['bins'] = df['histogram_means'].apply(ast.literal_eval)
 
-    print(f"🔬 Calculating GMM thresholds for {len(df)} district-months...")
+    print(f"Calculating GMM thresholds for {len(df)} district-months...")
     
     # Apply GMM
     df['threshold'] = df.apply(fit_gmm_and_find_threshold, axis=1)
@@ -94,7 +93,7 @@ def main():
     # Drop rows where GMM failed
     failed = df['threshold'].isna().sum()
     if failed > 0:
-        print(f"⚠️ Warning: GMM failed for {failed} rows (likely insufficient water data).")
+        print(f"Warning: GMM failed for {failed} rows (likely insufficient water data).")
     
     # Save the lookup table
     # We group by District and Month to get a clean lookup table
@@ -104,8 +103,7 @@ def main():
     lookup['threshold'] = lookup.groupby('district_name')['threshold'].transform(lambda x: x.interpolate().bfill().ffill())
     
     lookup.to_csv(OUTPUT_LOOKUP, index=False)
-    print(f"✅ Success! Lookup table saved to: {OUTPUT_LOOKUP}")
-    print("\nNext Step: Upload this CSV to GEE and update the ‘water_explorer’ script.")
+    print(f"Success! Lookup table saved to: {OUTPUT_LOOKUP}")
 
 if __name__ == "__main__":
     main()

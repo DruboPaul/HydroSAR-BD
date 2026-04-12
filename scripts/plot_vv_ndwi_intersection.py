@@ -58,6 +58,6 @@ plt.xlim(-28, 0)
 plt.legend(loc='upper right', framealpha=0.9)
 plt.tight_layout()
 
-art_path = r"C:\Users\iwm2\.gemini\antigravity\brain\d299b208-04e2-4a82-9681-e745ca510538\vv_ndwi_threshold.png"
-plt.savefig(art_path, dpi=300)
-print(art_path)
+output_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "figures", "vv_ndwi_threshold.png")
+plt.savefig(output_path, dpi=300)
+print(output_path)

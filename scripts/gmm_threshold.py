@@ -50,7 +50,7 @@ df.columns = ['bin_center', 'count']
 df['count'] = pd.to_numeric(df['count'], errors='coerce').fillna(0)
 df = df[df['count'] > 0].reset_index(drop=True)
 
-print(f"\n📂 Loaded: {CSV_PATH}")
+print(f"\nLoaded: {CSV_PATH}")
 print(f"   Bins with data: {len(df)}")
 print(f"   VV range: {df['bin_center'].min():.1f} to {df['bin_center'].max():.1f}")
 print(f"   Total pixel count: {df['count'].sum():.0f}")
@@ -60,7 +60,7 @@ samples = np.repeat(df['bin_center'].values, df['count'].astype(int).values)
 print(f"   Reconstructed samples: {len(samples)}")
 
 # ─── Step 3: Fit GMM ─────────────────────────────────────────────────────────────
-print(f"\n🔬 Fitting {N_COMPONENTS}-component Gaussian Mixture Model...")
+print(f"\nFitting {N_COMPONENTS}-component Gaussian Mixture Model...")
 
 gmm = GaussianMixture(
     n_components=N_COMPONENTS,
@@ -78,7 +78,7 @@ weights = gmm.weights_.flatten()
 order = np.argsort(means)
 means, stds, weights = means[order], stds[order], weights[order]
 
-print(f"\n📊 GMM Components:")
+print(f"\nGMM Components:")
 print(f"   ┌──────────────┬────────────────┬────────────────┬────────────────┐")
 print(f"   │  Component   │   Mean         │   Std          │    Weight      │")
 print(f"   ├──────────────┼────────────────┼────────────────┼────────────────┤")
@@ -149,7 +149,7 @@ for name, thresh in thresholds_to_compare.items():
     print(f"   {name:<25} {thresh:>+10.2f} {w_pct:>9.1f}% {l_pct:>9.1f}%")
 
 # ─── Step 7: Scale note ─────────────────────────────────────────────────────────
-print(f"\n⚠️  SCALE NOTE:")
+print(f"\nSCALE NOTE:")
 print(f"   The histogram CSV was generated with 10×log10() applied to raw S1 VV.")
 print(f"   GMM threshold ({gmm_threshold:+.2f}) and Otsu ({otsu_threshold:+.2f}) are in this transformed space.")
 

@@ -69,5 +69,5 @@ ax1.legend(lines_1 + lines_2, labels_1 + labels_2, loc='upper left', framealpha=
 plt.title('Finding the Optimal Single Threshold via F1-Score Maximization', fontsize=14, pad=15, fontweight='bold')
 plt.grid(True, alpha=0.3)
 plt.tight_layout()
-art_path = r"C:\Users\iwm2\.gemini\antigravity\brain\d299b208-04e2-4a82-9681-e745ca510538\optimum_threshold_f1.png"
-plt.savefig(art_path, dpi=300)
+output_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "figures", "optimum_threshold_f1.png")
+plt.savefig(output_path, dpi=300)

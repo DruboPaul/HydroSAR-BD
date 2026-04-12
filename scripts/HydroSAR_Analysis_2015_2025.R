@@ -3,26 +3,26 @@
 # Publication-Quality Figures & Trend Analysis
 # ═══════════════════════════════════════════════════════════════════
 
-# --- 0. প্যাকেজ ইনস্টল ও লোড ---
+# --- 0. Package Installation and Loading ---
 required_pkgs <- c("ggplot2", "dplyr", "tidyr", "trend", "RColorBrewer", "scales", "viridis")
 for (pkg in required_pkgs) {
   if (!require(pkg, character.only = TRUE)) install.packages(pkg)
   library(pkg, character.only = TRUE)
 }
 
-# --- 1. ডেটা লোড ---
-file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/Final_Interpolated_Master_Dataset_GMM.csv"
+# --- 1. Data Loading ---
+file_path <- "../data/Final_Interpolated_Master_Dataset_GMM.csv"
 if (!file.exists(file_path)) stop("Master CSV not found! Check the path.")
 
 df <- read.csv(file_path)
 df$Year  <- as.integer(df$Year)
 df$Month <- as.integer(df$Month)
 
-# মাসের নাম যোগ করা
+# Add month names
 month_names <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
 df$MonthName <- factor(month_names[df$Month], levels = month_names)
 
-# রিজিয়ন টাইপ নির্ধারণ করা
+# Determine region type
 df$RegionType <- case_when(
   df$Scope == "National" ~ "National",
   grepl("_Division", df$Class) ~ "Division",
@@ -33,17 +33,17 @@ df$RegionType <- case_when(
 # Clean labels for plotting
 df$ClassLabel <- gsub("_Division|_District", "", df$Class)
 
-# ডুপ্লিকেট রো বাদ দেওয়া (Division নাম District ফাইলেও থাকতে পারে)
+# Remove duplicate rows (Division names might exist in District files)
 df <- df %>% distinct(Year, Month, Class, .keep_all = TRUE)
 
 cat("Data loaded:", nrow(df), "rows,", length(unique(df$Class)), "regions\n\n")
 
-# আউটপুট ফোল্ডার
+# Output folder
 fig_dir <- "../figures/"
 if (!dir.exists(fig_dir)) dir.create(fig_dir, recursive = TRUE)
 
 # ═══════════════════════════════════════════════════════════════════
-# 2. জাতীয় পর্যায়ের পরিসংখ্যান (NATIONAL STATISTICS)
+# 2. NATIONAL STATISTICS
 # ═══════════════════════════════════════════════════════════════════
 nat <- df %>% filter(Scope == "National")
 
@@ -52,7 +52,7 @@ cat("STATISTICAL ANALYSIS — SAR Surface Water Paper\n")
 cat("Study Period: 2015-2025 (11 Years)\n")
 cat("═══════════════════════════════════════════════\n\n")
 
-# --- মাসিক গড় পরিসংখ্যান ---
+# --- Monthly mean statistics ---
 cat("── Monthly Statistics (2015-2025 Mean) ──\n\n")
 monthly_stats <- nat %>%
   group_by(MonthName) %>%
@@ -65,14 +65,14 @@ monthly_stats <- nat %>%
   )
 print(as.data.frame(monthly_stats), row.names = FALSE)
 
-# --- সর্বোচ্চ ও সর্বনিম্ন ---
+# --- Maximum and Minimum ---
 peak <- nat[which.max(nat$Area_km2), ]
 low  <- nat[which.min(nat$Area_km2), ]
 cat(sprintf("\nPeak Water: %.0f km² (%s %d)\n", peak$Area_km2, month_names[peak$Month], peak$Year))
 cat(sprintf("Lowest Water: %.0f km² (%s %d)\n\n", low$Area_km2, month_names[low$Month], low$Year))
 
 # ═══════════════════════════════════════════════════════════════════
-# 3. ট্রেন্ড অ্যানালাইসিস (TREND ANALYSIS)
+# 3. TREND ANALYSIS
 # ═══════════════════════════════════════════════════════════════════
 cat("── Trend Analysis (July Peak) ──\n\n")
 july <- nat %>% filter(Month == 7) %>% arrange(Year) %>% pull(Area_km2)
@@ -91,7 +91,7 @@ sen_result <- sens.slope(july)
 cat(sprintf("Sen's Slope: %+.2f km²/year\n", sen_result$estimates))
 cat(sprintf("95%% CI: [%.2f, %.2f]\n\n", sen_result$conf.int[1], sen_result$conf.int[2]))
 
-# প্রতিটি মাসের ট্রেন্ড
+# Monthly trend analysis
 cat("── Monthly Trend Tests (Mann-Kendall) ──\n\n")
 cat(sprintf("  %-6s  %8s  %8s  %s\n", "Month", "Tau", "p-value", "Trend"))
 cat(paste(rep("-", 50), collapse = ""), "\n")
@@ -106,7 +106,7 @@ for (m in 1:12) {
 }
 cat("\n  * = significant at alpha=0.05\n\n")
 
-# --- ঋতু বিশ্লেষণ ---
+# --- Seasonal analysis ---
 cat("── Seasonal Analysis ──\n\n")
 seasonal <- nat %>%
   mutate(Season = case_when(
@@ -124,7 +124,7 @@ dry_mean     <- seasonal$Mean[seasonal$Season == "Dry/Winter"]
 cat(sprintf("\nSeasonal Expansion Ratio (Monsoon/Dry): %.2fx\n\n", monsoon_mean / dry_mean))
 
 # ═══════════════════════════════════════════════════════════════════
-# 4. ফিগার জেনারেশন (PUBLICATION-QUALITY FIGURES)
+# 4. PUBLICATION-QUALITY FIGURES
 # ═══════════════════════════════════════════════════════════════════
 
 # --- Fig 4: National Monthly Seasonality (Ribbon Plot) ---

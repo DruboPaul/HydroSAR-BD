@@ -1,40 +1,70 @@
-# 🌊 HydroSAR Bangladesh - GMM Threshold Analysis
-**(Seasonally Adaptive Per-District SAR Water Detection)**
+# HydroSAR Bangladesh -- Spatiotemporally Adaptive SAR Water Detection
+
+**Decadal Surface Water Dynamics in Bangladesh Using Sentinel-1 SAR (2015--2025)**
+
+This repository contains all code, data, and analysis scripts for the
+spatiotemporally adaptive Gaussian Mixture Model (ST-GMM) framework for surface
+water detection using Sentinel-1 C-band SAR imagery across Bangladesh.
 
 ---
 
-## 🚩 PROJECT STATUS DASHBOARD
-**Current Phase**: 🧬 Data Generation & Manuscript Sync (Phase 4 of 5)
+## Project Organization
 
-| Metric | Status | Value |
-| :--- | :--- | :--- |
-| **GMM Accuracy (OA)** | ✅ Verified | **94.24%** |
-| **GMM Kappa (κ)** | ✅ Verified | **0.8848** |
-| **Field Validation** | ✅ Audited | 6,000 Points |
-| **11-Year GEE Run** | 🔄 In-Progress | Waiting for Console Output |
-| **Manuscript Tables** | 🔄 In-Progress | 2015 Baseline Synced |
+```
+HydroSAR-BD/
+├── 7_Manuscript/            LaTeX source and supplementary materials
+├── 8_GEE_Scripts_Common/    Google Earth Engine scripts (histogram export, validation)
+├── data/                    Threshold lookup tables, GEE console exports, validation points
+├── scripts/                 Python and R analysis scripts (GMM fitting, statistics, figures)
+├── figures/                 Publication-quality plots and maps
+├── legacy/                  Archived fixed-threshold analysis (for reference)
+├── 6_Accuracy_Assessment/   Accuracy assessment documentation
+├── REPRODUCE.md             Step-by-step reproduction guide
+└── requirements.txt         Python dependencies
+```
 
----
+## Key Results
 
-## 📂 Project Organization
+| Metric               | Value       |
+|:----------------------|:------------|
+| Overall Accuracy (OA) | 94.24%      |
+| Cohen's Kappa         | 0.8848      |
+| Validation Points     | 6,000       |
+| Study Period           | 2015--2025  |
+| Spatial Coverage       | 64 districts, 8 divisions |
 
-- **`7_Manuscript/`**: 📝 The LaTeX source for the publication.
-- **`8_GEE_Scripts_Common/`**: 🛰️ Earth Engine scripts (History, Explorer, Validation).
-- **`data/`**: 📊 Numerical data, threshold lookup tables, and GEE console exports.
-- **`scripts/`**: 🐍 Python/R library for statistics, GMM fitting, and figure generation.
-- **`figures/`**: 🖼️ Final publication-quality plots and maps.
-- **`legacy/`**: 📦 Archived "Fixed Threshold" files and temporary analysis scripts.
+## Quick Start
 
----
+```bash
+# Install Python dependencies
+pip install -r requirements.txt
 
-## 🔄 How to Resume (New Monitor/Location)
+# Reproduce GMM thresholds from GEE histograms
+python scripts/batch_gmm_processor.py
 
-If you are starting work from a different PC, follow these steps to see exactly where we are:
+# Compute water area time series
+python scripts/compute_water_area_from_histograms.py
 
-1.  **Check `task.md`**: This is our master checklist. Look for the `[/]` (In Progress) and `[ ]` (Pending) markers.
-2.  **Verify GEE Console**: Open Earth Engine. If any `monthly_water_area` consoles have finished, save the text to `data/GEE_data/`.
-3.  **Run Sync**: Use `scripts/parse_gee_console.py` and `data/get_stats.py` to update the local database.
-4.  **Finalize Tables**: Check `7_Manuscript/main_final_submission.tex` for remaining `[TBD]` markers.
+# Generate publication figures
+python scripts/generate_all_figures.py
+```
 
----
-*Last Sync: March 16, 2026 (11-Year Dataset Baseline established with 2015 data)*
+See [REPRODUCE.md](REPRODUCE.md) for the full five-stage reproduction pipeline.
+
+## Data Sources
+
+| Dataset             | Source               | Access                              |
+|:--------------------|:---------------------|:------------------------------------|
+| Sentinel-1 GRD      | ESA / Copernicus     | `COPERNICUS/S1_GRD` via GEE        |
+| SRTM DEM            | NASA / USGS          | `USGS/SRTMGL1_003` via GEE         |
+| Admin Boundaries    | FAO GAUL 2015        | `FAO/GAUL/2015/level2` via GEE     |
+| JRC Global Surface Water | JRC / Pekel et al. 2016 | `JRC/GSW1_4/GlobalSurfaceWater` via GEE |
+| Field Validation    | This study           | `data/Sample_Points/`               |
+
+## License
+
+[To be determined by authors]
+
+## Citation
+
+[To be added upon publication]

@@ -53,7 +53,7 @@ function getMonthlyWater(year, monthName) {
 /* ====================================================
    PART 1: WATER PERSISTENCE (2023)
    ==================================================== */
-print('⏳ PART 1: Persistence Classification (2023) শুরু হচ্ছে...');
+print('Starting PART 1: Persistence Classification (2023)...');
 
 var year2023 = 2023;
 var monthlyImages = Object.keys(monthMap).map(function (m) {
@@ -101,7 +101,7 @@ ee.Dictionary({
 /* ====================================================
    PART 2: JULY CHANGE DETECTION (2015 vs 2024)
    ==================================================== */
-print('⏳ PART 2: July Change Detection (2015 vs 2024) শুরু হচ্ছে...');
+print('Starting PART 2: July Change Detection (2015 vs 2024)...');
 
 var water2015 = getMonthlyWater(2015, 'July');
 var water2024 = getMonthlyWater(2024, 'July');

@@ -17,7 +17,7 @@ library(RColorBrewer)
 
 # 2. Load Data
 # Assuming the user has downloaded the V2 CSV to the statistics folder
-file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/Final_Interpolated_Master_Dataset_GMM.csv"
+file_path <- "../data/Final_Interpolated_Master_Dataset_GMM.csv"
 
 # Safety check for file existence
 if (!file.exists(file_path)) {
@@ -30,7 +30,7 @@ df <- read.csv(file_path)
 df$Month <- factor(df$Month, levels = c("January", "February", "March", "April", "May", "June", 
                                         "July", "August", "September", "October", "November", "December"))
 
-# 3. 🌧️ Plot 1: Raincloud Plot (Monthly Distribution)
+# 3. Plot 1: Raincloud Plot (Monthly Distribution)
 # Shows the distribution, density, and actual data points for each month across 10 years
 p1 <- ggplot(df %>% filter(Region_Type == "National"), aes(x = Month, y = Area_km2, fill = Month)) +
   stat_halfeye(adjust = .5, width = .6, justification = -.2, .width = 0, point_colour = NA) +
@@ -45,7 +45,7 @@ p1 <- ggplot(df %>% filter(Region_Type == "National"), aes(x = Month, y = Area_k
 
 ggsave("../figures/R_raincloud_distribution.png", p1, width = 10, height = 6, dpi = 300)
 
-# 4. 📈 Plot 2: Seasonal Ribbon Plot
+# 4. Plot 2: Seasonal Ribbon Plot
 # Shows the mean water area with a shaded ribbon for Standard Deviation
 seasonal_stats <- df %>%
   filter(Region_Type == "National") %>%
