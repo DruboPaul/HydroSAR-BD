@@ -11,8 +11,17 @@ for (pkg in required_pkgs) {
 }
 
 # --- 1. Data Loading ---
-file_path <- "../data/Final_Interpolated_Master_Dataset_GMM.csv"
-if (!file.exists(file_path)) stop("Master CSV not found! Check the path.")
+# Resolve project root from script location
+args <- commandArgs(trailingOnly = FALSE)
+script_path <- sub("--file=", "", args[grep("--file=", args)])
+if (length(script_path) > 0) {
+  base_dir <- normalizePath(file.path(dirname(script_path), ".."))
+} else {
+  base_dir <- normalizePath(getwd())
+  message("Note: Could not determine script path, using working directory: ", base_dir)
+}
+file_path <- file.path(base_dir, "data", "GEE_data", "computed_results", "district_monthly_water_area_2015_2025.csv")
+if (!file.exists(file_path)) stop("Master CSV not found: ", file_path)
 
 df <- read.csv(file_path)
 df$Year  <- as.integer(df$Year)

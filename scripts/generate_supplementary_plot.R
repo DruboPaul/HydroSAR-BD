@@ -5,8 +5,17 @@ library(ggplot2)
 library(dplyr)
 library(scales)
 
-# 1. Load the CSV file downloaded from GEE
-file_path <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/data/GEE_data/bhola_vv_histogram_july2023.csv"
+# 1. Load the CSV file
+args <- commandArgs(trailingOnly = FALSE)
+script_path <- sub("--file=", "", args[grep("--file=", args)])
+if (length(script_path) > 0) {
+  base_dir <- normalizePath(file.path(dirname(script_path), ".."))
+} else {
+  base_dir <- normalizePath(getwd())
+  message("Note: Could not determine script path, using working directory: ", base_dir)
+}
+file_path <- file.path(base_dir, "data", "GEE_data", "bhola_vv_histogram_july2023.csv")
+if (!file.exists(file_path)) stop("Data file not found: ", file_path)
 data <- read.csv(file_path, stringsAsFactors = FALSE)
 
 # 2. Rename columns and clean data
@@ -58,8 +67,9 @@ p <- ggplot(data, aes(x = Backscatter, y = Pixel_Count)) +
   )
 
 # 5. Save the plot to the figures directory
-output_dir <- "D:/Drubo_IWm/Drubo_all/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM/figures/"
-ggsave(paste0(output_dir, "Supplementary_Figure_1_Otsu.pdf"), plot = p, width = 10, height = 6, dpi = 300)
-ggsave(paste0(output_dir, "Supplementary_Figure_1_Otsu.png"), plot = p, width = 10, height = 6, dpi = 300)
+output_dir <- file.path(base_dir, "figures")
+if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
+ggsave(file.path(output_dir, "Supplementary_Figure_1_Otsu.pdf"), plot = p, width = 10, height = 6, dpi = 300)
+ggsave(file.path(output_dir, "Supplementary_Figure_1_Otsu.png"), plot = p, width = 10, height = 6, dpi = 300)
 
 cat("Successfully generated Supplementary_Figure_1_Otsu in the figures directory.\n")

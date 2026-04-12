@@ -18,12 +18,13 @@ and produces all statistical analyses and publication figures.
 ## Repository Structure
 
 ```
-SAR Analysis GMM/
+HydroSAR-BD/
 ├── requirements.txt                  # Python dependencies
 ├── REPRODUCE.md                      # This file
+├── LICENSE                           # MIT License
 │
 ├── 8_GEE_Scripts_Common/             # Stage 1: Google Earth Engine scripts
-│   ├── export_11yr_histograms.js     # Extract VV histograms (64 dist × 12 mo × 11 yr)
+│   ├── export_11yr_histograms.js     # Extract VV histograms (64 dist x 12 mo x 11 yr)
 │   ├── monthly_water_area_export.js  # Compute water area (validation/cross-check)
 │   ├── persistence_change_export.js  # Water persistence & change detection maps
 │   ├── gmm_field_validation.js       # Accuracy assessment vs field data
@@ -31,8 +32,8 @@ SAR Analysis GMM/
 │   └── water_explorer/               # Interactive GEE web application
 │
 ├── scripts/                          # Stages 2-5: Local analysis
-│   ├── batch_gmm_processor.py        # Stage 2: Fit GMM → threshold lookup table
-│   ├── compute_water_area_from_histograms.py  # Stage 3: Apply thresholds → water areas
+│   ├── batch_gmm_processor.py        # Stage 2: Fit GMM -> threshold lookup table
+│   ├── compute_water_area_from_histograms.py  # Stage 3: Apply thresholds -> water areas
 │   ├── generate_all_figures.py       # Stage 5: Publication figures (Python)
 │   ├── validation_viz.R              # Stage 5: Confusion matrix + monthly accuracy
 │   ├── run_smk.R                     # Stage 4: Mann-Kendall + Sen's slope (R)
@@ -54,7 +55,8 @@ SAR Analysis GMM/
 │       └── Balanced_Validation_Points_2025_Full.csv
 │
 ├── 7_Manuscript/                     # LaTeX source files
-└── figures/                          # Generated figures
+├── figures/                          # Generated figures
+└── legacy/                           # Archived development scripts (not part of pipeline)
 ```
 
 ---
@@ -73,7 +75,7 @@ pip install -r requirements.txt
 install.packages(c("trend", "ggplot2", "dplyr", "tidyr", "scales"))
 ```
 
-**Google Earth Engine**: A GEE account is required for Stage 1.
+**Google Earth Engine**: A GEE account is required for Stage 1 only.
 Register at https://earthengine.google.com/
 
 ### Stage 1: GEE Data Extraction (Cloud)
@@ -84,7 +86,7 @@ Register at https://earthengine.google.com/
 1. Open [Google Earth Engine Code Editor](https://code.earthengine.google.com/)
 2. Paste `8_GEE_Scripts_Common/export_11yr_histograms.js`
 3. Click **Run**, then go to **Tasks** tab and click **Run** on the export task
-4. Download the CSV from Google Drive → `data/GEE_data/`
+4. Download the CSV from Google Drive -> `data/GEE_data/`
 
 ### Stage 2: GMM Threshold Derivation
 
@@ -93,7 +95,9 @@ python scripts/batch_gmm_processor.py
 ```
 
 **Input**: `data/GEE_data/Bangladesh_District_VV_Histograms_2015_2025.csv`
-**Output**: `data/GMM_Threshold_Lookup_Table.csv`
+**Output**:
+- `data/GMM_Threshold_Lookup_Table.csv` (district x month lookup)
+- `data/Master_GMM_Thresholds_BD.csv` (master file used by Stage 3)
 
 ### Stage 3: Water Area Computation
 
@@ -101,7 +105,7 @@ python scripts/batch_gmm_processor.py
 python scripts/compute_water_area_from_histograms.py
 ```
 
-**Input**: Stage 1 histograms + Stage 2 thresholds
+**Input**: Stage 1 histograms + `data/Master_GMM_Thresholds_BD.csv` (from Stage 2)
 **Output**: 5 CSV files in `data/GEE_data/computed_results/`
 
 ### Stage 4: Statistical Analysis
@@ -137,7 +141,7 @@ Rscript scripts/generate_supplementary_plot.R
 | Pixel scale (GEE histogram) | 100 m | `export_11yr_histograms.js` L73 |
 | Pixel scale (GEE water area) | 250 m | `monthly_water_area_export.js` L39 |
 | Histogram bins | 200, min width 0.15 dB | `export_11yr_histograms.js` L69-70 |
-| DEM slope mask | SRTM 30 m, slope > 15° excluded | Manuscript Section 4.2 |
+| DEM slope mask | SRTM 30 m, slope > 15 deg excluded | Manuscript Section 4.2 |
 
 ## Calibration
 
@@ -164,7 +168,7 @@ to all computed water areas.
 
 ## License
 
-[To be determined by authors]
+MIT License. See [LICENSE](LICENSE).
 
 ## Citation
 

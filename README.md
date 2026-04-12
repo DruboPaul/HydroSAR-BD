@@ -17,9 +17,10 @@ HydroSAR-BD/
 ├── data/                    Threshold lookup tables, GEE console exports, validation points
 ├── scripts/                 Python and R analysis scripts (GMM fitting, statistics, figures)
 ├── figures/                 Publication-quality plots and maps
-├── legacy/                  Archived fixed-threshold analysis (for reference)
+├── legacy/                  Archived development utilities (not part of main pipeline)
 ├── 6_Accuracy_Assessment/   Accuracy assessment documentation
 ├── REPRODUCE.md             Step-by-step reproduction guide
+├── LICENSE                  MIT License
 └── requirements.txt         Python dependencies
 ```
 
@@ -63,7 +64,7 @@ See [REPRODUCE.md](REPRODUCE.md) for the full five-stage reproduction pipeline.
 
 ## License
 
-[To be determined by authors]
+MIT License. See [LICENSE](LICENSE).
 
 ## Citation
 

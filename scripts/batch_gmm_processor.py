@@ -12,6 +12,13 @@ warnings.filterwarnings('ignore')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INPUT_CSV = os.path.join(BASE_DIR, "data", "GEE_data", "Bangladesh_District_VV_Histograms_2015_2025.csv")
 OUTPUT_LOOKUP = os.path.join(BASE_DIR, "data", "GMM_Threshold_Lookup_Table.csv")
+OUTPUT_MASTER = os.path.join(BASE_DIR, "data", "Master_GMM_Thresholds_BD.csv")
+
+MONTH_NAMES = {
+    1: 'January', 2: 'February', 3: 'March', 4: 'April',
+    5: 'May', 6: 'June', 7: 'July', 8: 'August',
+    9: 'September', 10: 'October', 11: 'November', 12: 'December'
+}
 
 def fit_gmm_and_find_threshold(row):
     """
@@ -71,7 +78,7 @@ def main():
         print(f"Error: {INPUT_CSV} not found.")
         return
 
-    print(f"📖 Reading {INPUT_CSV}...")
+    print(f"Reading {INPUT_CSV}...")
     df = pd.read_csv(INPUT_CSV)
     
     # GEE exports hist as a string like "[10, 20, 30]"
@@ -103,7 +110,33 @@ def main():
     lookup['threshold'] = lookup.groupby('district_name')['threshold'].transform(lambda x: x.interpolate().bfill().ffill())
     
     lookup.to_csv(OUTPUT_LOOKUP, index=False)
-    print(f"Success! Lookup table saved to: {OUTPUT_LOOKUP}")
+    print(f"Lookup table saved to: {OUTPUT_LOOKUP}")
+
+    # Also save in the Master format expected by compute_water_area_from_histograms.py
+    # Format: Month_Num, Month_Name, Area_Name, GMM_Threshold_dB
+    master_rows = []
+    for _, row in lookup.iterrows():
+        master_rows.append({
+            'Month_Num': int(row['month']),
+            'Month_Name': MONTH_NAMES[int(row['month'])],
+            'Area_Name': row['district_name'],
+            'GMM_Threshold_dB': round(row['threshold'], 4)
+        })
+
+    # Add national mean thresholds
+    national_mean = lookup.groupby('month')['threshold'].mean().reset_index()
+    for _, row in national_mean.iterrows():
+        master_rows.append({
+            'Month_Num': int(row['month']),
+            'Month_Name': MONTH_NAMES[int(row['month'])],
+            'Area_Name': 'national_mean',
+            'GMM_Threshold_dB': round(row['threshold'], 4)
+        })
+
+    master_df = pd.DataFrame(master_rows)
+    master_df = master_df.sort_values(['Month_Num', 'Area_Name']).reset_index(drop=True)
+    master_df.to_csv(OUTPUT_MASTER, index=False)
+    print(f"Master threshold file saved to: {OUTPUT_MASTER}")
 
 if __name__ == "__main__":
     main()

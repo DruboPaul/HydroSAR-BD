@@ -20,8 +20,9 @@ script_path <- sub("--file=", "", args[grep("--file=", args)])
 if (length(script_path) > 0) {
   base_dir <- normalizePath(file.path(dirname(script_path), ".."))
 } else {
-  # Fallback
-  base_dir <- normalizePath("c:/Users/Drubo/Documents/Project/Publication/Project_HydroSAR-Bangladesh/SAR Analysis GMM")
+  # Fallback: assume working directory is the project root
+  base_dir <- normalizePath(getwd())
+  message("Note: Could not determine script path, using working directory: ", base_dir)
 }
 data_path <- file.path(base_dir, "data", "Sample_Points", "Final_Binary_Field_Validation_2025.csv")
 df <- read.csv(data_path)
