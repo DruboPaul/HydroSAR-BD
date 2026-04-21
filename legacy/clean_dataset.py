@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Final_Master_Dataset_2015_2025.csv"
+path = r"data\GEE_data\Final_Master_Dataset_2015_2025.csv"
 df = pd.read_csv(path)
 
 # 1. Identify collision regions
@@ -48,7 +48,7 @@ for col in collision_names:
         pass
 
 # 3. Save cleaned dataset
-output_path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Cleaned_Master_Dataset_2015_2025.csv"
+output_path = r"data\GEE_data\Cleaned_Master_Dataset_2015_2025.csv"
 df_clean.to_csv(output_path, index=False)
 
 print(f"Cleaned dataset saved to {output_path}")

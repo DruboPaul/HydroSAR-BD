@@ -1,6 +1,6 @@
 import pandas as pd
 
-path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Cleaned_Master_Dataset_2015_2025.csv"
+path = r"data\GEE_data\Cleaned_Master_Dataset_2015_2025.csv"
 df = pd.read_csv(path)
 
 # 1. Sequence Analysis for Bagerhat (Late 2020 to Early 2021)

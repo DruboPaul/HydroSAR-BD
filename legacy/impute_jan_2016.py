@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Load the cleaned dataset
-path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Cleaned_Master_Dataset_2015_2025.csv"
+path = r"data\GEE_data\Cleaned_Master_Dataset_2015_2025.csv"
 df = pd.read_csv(path)
 
 # Total 72 regions (64 Districts + 8 Divisions) + Bangladesh
@@ -33,7 +33,7 @@ for region in regions:
 print(f"Remaining problematic records: {len(df[(df['Year'] == 2016) & (df['Month'] == 1) & (df['Area_km2'] == 0)])}")
 
 # Save the final version
-final_path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Final_Imputed_Master_Dataset_2015_2025.csv"
+final_path = r"data\GEE_data\Final_Imputed_Master_Dataset_2015_2025.csv"
 df.to_csv(final_path, index=False)
 
 print(f"Final imputed dataset saved to {final_path}")

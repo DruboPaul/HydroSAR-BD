@@ -3,6 +3,19 @@ Bangladesh_District_VV_Histograms_2015_2025.csv
 data/GEE_data/Bangladesh_District_VV_Histograms_2015_2025.csv
 data/GEE_data/GMM_Uncertainty_Parameters_Bangladesh.csv
 
+# Large raster files (available on Zenodo)
+*.tif
+*.tiff
+
+# Nested clone (not part of this repo)
+HydroSAR-BD/
+
+# Internal working documents
+0_RESUME_GUIDE.md
+implementation_plan.md
+fix_portability.py
+q1_methodology_flowchart_stgmm.svg
+
 # Backups
 7_Manuscript/backup/
 figures_backup_original/

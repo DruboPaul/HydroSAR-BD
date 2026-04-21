@@ -1,11 +1,47 @@
+import os
+import sys
+import subprocess
+import time
+
+# ─── Dependency Check & Auto-Installer ─────────────────────────────────────────
+def install_dependencies():
+    requirements_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "requirements.txt")
+    
+    packages = []
+    if os.path.exists(requirements_file):
+        with open(requirements_file, "r") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#"):
+                    # Extract package name (handling versions like pandas>=1.3)
+                    package = line.split(">")[0].split("=")[0].split("<")[0].strip()
+                    packages.append(package)
+    else:
+        # Fallback to defaults if requirements.txt is missing
+        packages = ["pandas", "numpy", "scikit-learn", "scipy"]
+
+    for package in packages:
+        try:
+            # Map common package names to import names
+            import_name = package.replace("-", "_")
+            if package == "scikit-learn": import_name = "sklearn"
+            __import__(import_name)
+        except ImportError:
+            print(f"📦 {package} not found. Installing...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+install_dependencies()
+
 import pandas as pd
 import numpy as np
-import os
 from sklearn.mixture import GaussianMixture
 from scipy.stats import norm
 import warnings
 
 warnings.filterwarnings('ignore')
+
+# Start timing
+start_time = time.time()
 
 # ─── Configuration ─────────────────────────────────────────────────────────────
 # Path to the GEE-exported histogram CSV (User to provide this file)
@@ -110,6 +146,7 @@ def main():
     lookup['threshold'] = lookup.groupby('district_name')['threshold'].transform(lambda x: x.interpolate().bfill().ffill())
     
     lookup.to_csv(OUTPUT_LOOKUP, index=False)
+<<<<<<< HEAD
     print(f"Lookup table saved to: {OUTPUT_LOOKUP}")
 
     # Also save in the Master format expected by compute_water_area_from_histograms.py
@@ -137,6 +174,16 @@ def main():
     master_df = master_df.sort_values(['Month_Num', 'Area_Name']).reset_index(drop=True)
     master_df.to_csv(OUTPUT_MASTER, index=False)
     print(f"Master threshold file saved to: {OUTPUT_MASTER}")
+=======
+    print(f"✅ Success! Lookup table saved to: {OUTPUT_LOOKUP}")
+    print("\nNext Step: Upload this CSV to GEE and update the ‘water_explorer’ script.")
+    
+    # End timing
+    end_time = time.time()
+    total_time = end_time - start_time
+    print(f"\n⏱️  Total Execution Time: {total_time:.2f} seconds ({total_time/60:.2f} minutes)")
+    print(f"📊 Average time per threshold: {(total_time/len(df))*1000:.2f} ms")
+>>>>>>> 2f4a07f (Finalize methodologies, figures, datasets, and scripts for manuscript submission)
 
 if __name__ == "__main__":
     main()

@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
-path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Final_Imputed_Master_Dataset_2015_2025.csv"
+path = r"data\GEE_data\Final_Imputed_Master_Dataset_2015_2025.csv"
 if not os.path.exists(path):
     print("Cannot find dataset!")
     exit(1)
@@ -39,7 +39,7 @@ for region in regions:
 print(f"Fixed {fixed_count} regions using linear interpolation.")
 
 # Save to a new version to be safe
-output_path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Final_Interpolated_Master_Dataset_2015_2025.csv"
+output_path = r"data\GEE_data\Final_Interpolated_Master_Dataset_2015_2025.csv"
 df.to_csv(output_path, index=False)
 
 print(f"Final dataset saved to: {output_path}")

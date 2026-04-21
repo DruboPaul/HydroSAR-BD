@@ -54,7 +54,7 @@ def parse_console_file(filepath):
     return pd.DataFrame(rows)
 
 def main():
-    gee_data_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data"
+    gee_data_dir = r"data\GEE_data"
     txt_files = glob.glob(os.path.join(gee_data_dir, "gee_console_*.txt"))
     
     if not txt_files:

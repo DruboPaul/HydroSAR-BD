@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 
 # Load the field validation data
-file_path = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Sample_Points\Water_Samples_2025_Full_Year.csv"
+file_path = r"data\Sample_Points\Water_Samples_2025_Full_Year.csv"
 # Note: Use the file with NDWI column if available
-ndwi_file = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Sample_Points\SAR_Water_Validation_with_NDWI_2025_Robust.csv"
+ndwi_file = r"data\Sample_Points\SAR_Water_Validation_with_NDWI_2025_Robust.csv"
 
 try:
     df = pd.read_csv(ndwi_file)

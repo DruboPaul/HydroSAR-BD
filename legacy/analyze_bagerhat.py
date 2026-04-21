@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-path = r"d:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\GEE_data\Final_Master_Dataset_2015_2025.csv"
+path = r"data\GEE_data\Final_Master_Dataset_2015_2025.csv"
 df = pd.read_csv(path)
 
 # Filter for Bagerhat and January

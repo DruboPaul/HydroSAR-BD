@@ -4,11 +4,17 @@ from scipy.stats import gaussian_kde
 import os
 
 # Create figure directory if it doesn't exist
-out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\figures"
+out_dir = r"figures"
 os.makedirs(out_dir, exist_ok=True)
 
 # Set plotting style
-plt.rcParams.update({'font.size': 12, 'font.family': 'sans-serif'})
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman', 'DejaVu Serif', 'serif'],
+    'font.size': 12,
+    'axes.labelsize': 14,
+    'axes.titlesize': 16,
+})
 
 # Create figure with 2 subplots (Dry Season vs Monsoon)
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5), sharey=True)

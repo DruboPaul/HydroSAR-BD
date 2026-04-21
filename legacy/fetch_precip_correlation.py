@@ -31,7 +31,7 @@ if response.status_code == 200:
     monthly_precip = df_meteo.groupby(['Year', 'Month'])['Precip_mm'].sum().reset_index()
     
     # Read our SAR water area data
-    sar_path = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\data\Final_Interpolated_Master_Dataset_GMM.csv"
+    sar_path = r"data\Final_Interpolated_Master_Dataset_GMM.csv"
     df_sar = pd.read_csv(sar_path)
     df_sar_nat = df_sar[df_sar['Scope'] == 'National'][['Year', 'Month', 'Area_km2']]
     
@@ -45,7 +45,7 @@ if response.status_code == 200:
     print(f"July Peak Correlation (Precip vs Water Area): r = {corr_coeff:.3f}, p = {p_val:.4f}")
     
     # Plot Scatter
-    out_dir = r"D:\Drubo_IWm\Drubo_all\Project\Publication\Project_HydroSAR-Bangladesh\SAR Analysis GMM\figures"
+    out_dir = r"figures"
     os.makedirs(out_dir, exist_ok=True)
     
     plt.figure(figsize=(8, 6))
